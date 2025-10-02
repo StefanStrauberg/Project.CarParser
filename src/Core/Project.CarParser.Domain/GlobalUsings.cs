@@ -1,0 +1,1 @@
+global using Project.CarParser.Domain.Common;
