@@ -1,4 +1,4 @@
-namespace Project.CarParser.Application.Contracts.Repositories.ListeningRepository;
+namespace Project.CarParser.Application.Contracts.Repositories.CarListingRepository;
 
 public interface ICarListingRepository
   : IManyQueryRepository<CarListing>,

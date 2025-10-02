@@ -1,0 +1,15 @@
+global using Microsoft.EntityFrameworkCore;
+global using Project.CarParser.Domain;
+global using Project.CarParser.Persistence.Configuration;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Project.CarParser.Application.Contracts.Repositories.GenericRep;
+global using Project.CarParser.Persistence.Context;
+global using Project.CarParser.Application.Contracts.Specification;
+global using Project.CarParser.Domain.Common;
+global using Project.CarParser.Persistence.Repositories.GenericRep;
+global using System.Linq.Expressions;
+global using System.Reflection;
+global using Project.CarParser.Persistence.Helpers;
+global using Project.CarParser.Application.Contracts.Repositories.CarListingRepository;
+global using Project.CarParser.Persistence.Repositories.CarListingRepository;
