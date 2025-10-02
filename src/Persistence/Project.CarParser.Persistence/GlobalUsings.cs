@@ -13,3 +13,4 @@ global using System.Reflection;
 global using Project.CarParser.Persistence.Helpers;
 global using Project.CarParser.Application.Contracts.Repositories.CarListingRepository;
 global using Project.CarParser.Persistence.Repositories.CarListingRepository;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
