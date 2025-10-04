@@ -1,8 +1,10 @@
 namespace Project.CarParser.Domain;
 
-public enum GearType
+public enum TransmissionType
 {
-  Manual,
-  Automatic
+  Автоматическая = 1,
+  Механика = 2,
+  Робоот = 3,
+  Вариатор = 4
 }
 
