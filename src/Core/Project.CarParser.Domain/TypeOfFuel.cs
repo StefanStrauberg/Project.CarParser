@@ -1,13 +1,7 @@
 namespace Project.CarParser.Domain;
 
-public enum EngineType
+public class EngineType : BaseEntity
 {
-  Бензин = 1,
-  БензинПропан = 2,
-  БензинМетан = 3,
-  БензинГибрид = 4,
-  Дизель = 5,
-  ДизельГибрид = 6,
-  Электро = 7
+  public string Name { get; set; } = string.Empty;
+  public int Number { get; set; }
 }
-

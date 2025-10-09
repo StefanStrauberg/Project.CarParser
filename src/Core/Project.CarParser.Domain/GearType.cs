@@ -1,10 +1,8 @@
 namespace Project.CarParser.Domain;
 
-public enum TransmissionType
+public class TransmissionType : BaseEntity
 {
-  Автоматическая = 1,
-  Механика = 2,
-  Робоот = 3,
-  Вариатор = 4
+  public string Name { get; set; } = string.Empty;
+  public int Number { get; set; }
 }
 

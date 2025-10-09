@@ -5,10 +5,6 @@ namespace Project.CarParser.Application.Contracts.Repositories.UnOfWrkRep;
 /// </summary>
 public interface IUnitOfWork
 {
-  ICarListingRepository CarListings { get; }
-  /// <summary>
-  /// Commits the current unit of work, persisting changes.
-  /// </summary>
   void Complete();
   Task CompleteAsync(CancellationToken cancellationToken);
   void StartTransaction();

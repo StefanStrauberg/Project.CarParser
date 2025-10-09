@@ -1,4 +1,4 @@
-namespace Project.CarParser.Persistence.Repositories.CarListingRepository;
+namespace Project.CarParser.Persistence.Repositories;
 
 public class CarListingRepository(IExistenceQueryRepository<CarListing> existenceQueryRepository,
                                   ICountRepository<CarListing> countRepository,
@@ -10,23 +10,19 @@ public class CarListingRepository(IExistenceQueryRepository<CarListing> existenc
 {
   async Task<CarListing> IOneQueryRepository<CarListing>.GetOneShortAsync(ISpecification<CarListing> specification,
                                                                           CancellationToken cancellationToken)
-    => await oneQueryRepository.GetOneShortAsync(specification,
-                                                 cancellationToken);
+    => await oneQueryRepository.GetOneShortAsync(specification, cancellationToken);
 
   async Task<bool> IExistenceQueryRepository<CarListing>.AnyByQueryAsync(ISpecification<CarListing> specification,
                                                                          CancellationToken cancellationToken)
-    => await existenceQueryRepository.AnyByQueryAsync(specification,
-                                                      cancellationToken);
+    => await existenceQueryRepository.AnyByQueryAsync(specification, cancellationToken);
 
   async Task<int> ICountRepository<CarListing>.GetCountAsync(ISpecification<CarListing> specification,
                                                              CancellationToken cancellationToken)
-    => await countRepository.GetCountAsync(specification,
-                                           cancellationToken);
+    => await countRepository.GetCountAsync(specification, cancellationToken);
 
   async Task<IEnumerable<CarListing>> IManyQueryRepository<CarListing>.GetManyShortAsync(ISpecification<CarListing> specification,
                                                                                          CancellationToken cancellationToken)
-    => await manyQueryRepository.GetManyShortAsync(specification,
-                                                   cancellationToken);
+    => await manyQueryRepository.GetManyShortAsync(specification, cancellationToken);
 
   void IInsertRepository<CarListing>.InsertOne(CarListing entity)
     => insertRepository.InsertOne(entity);

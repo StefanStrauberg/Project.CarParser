@@ -30,17 +30,22 @@ public static class PersistenceServicesRegistration
     services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
 
     // Generic mutation repositories
-    services.AddScoped(typeof(IDeleteRepository<>), typeof(DeleteRepository<>));
     services.AddScoped(typeof(IInsertRepository<>), typeof(InsertRepository<>));
     services.AddScoped(typeof(IReplaceRepository<>), typeof(ReplaceRepository<>));
+    services.AddScoped(typeof(IDeleteRepository<>), typeof(DeleteRepository<>));
 
     // Bulk mutation repositories
-    services.AddScoped(typeof(IBulkDeleteRepository<>), typeof(BulkDeleteRepository<>));
     services.AddScoped(typeof(IBulkInsertRepository<>), typeof(BulkInsertRepository<>));
     services.AddScoped(typeof(IBulkReplaceRepository<>), typeof(BulkReplaceRepository<>));
+    services.AddScoped(typeof(IBulkDeleteRepository<>), typeof(BulkDeleteRepository<>));
 
     // Entity-specific repositories
+    services.AddScoped<IBodyTypeRepository, BodyTypeRepository>();
     services.AddScoped<ICarListingRepository, CarListingRepository>();
+    services.AddScoped<IEngineTypeRepository, EngineTypeRepository>();
+    services.AddScoped<IPlaceCityRepository, PlaceCityRepository>();
+    services.AddScoped<IPlaceRegionRepository, PlaceRegionRepository>();
+    services.AddScoped<ITransmissionTypeRepository, TransmissionTypeRepository>();
 
     // Unit of work abstractions
 

@@ -1,23 +1,7 @@
 namespace Project.CarParser.Domain;
 
-public enum BodyType
+public class BodyType : BaseEntity
 {
-  Внедорожник3Дв = 23,
-  Внедорожник5Дв = 6,
-  Кабиролет = 7,
-  Купе = 1,
-  ЛегковойФургон = 20,
-  Лимузин = 22,
-  Лифтбек = 26,
-  МикроавтобусГрузопассажирский = 21,
-  МикроавтобусПассажирский = 11,
-  Минивэн = 4,
-  Пикап = 8,
-  Родстер = 18,
-  Седан = 5,
-  Универсал = 2,
-  Хэтчбек3Дв = 24,
-  Хэтчбек5Дв = 3,
-  Другой = 19
+  public string Name { get; set; } = string.Empty;
+  public int Number { get; set; }
 }
-

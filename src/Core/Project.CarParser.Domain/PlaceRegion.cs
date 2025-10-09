@@ -1,11 +1,7 @@
 namespace Project.CarParser.Domain;
 
-public enum PlaceRegion
+public class PlaceRegion : BaseEntity
 {
-  Брест = 1001,
-  Витебск = 1002,
-  Гомель = 1003,
-  Гродно = 1004,
-  Минск = 1005,
-  Могилев = 1006
+  public string Name { get; set; } = string.Empty;
+  public int Number { get; set; }
 }
