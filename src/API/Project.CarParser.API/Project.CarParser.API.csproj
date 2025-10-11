@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\Infrastructure\Project.CarParser.AppLogger\Project.CarParser.AppLogger.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Project.CarParser.Specification\Project.CarParser.Specification.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Project.CarParser.QueryFilterParser\Project.CarParser.QueryFilterParser.csproj" />
+    <ProjectReference Include="..\..\Persistence\Project.CarParser.Persistence\Project.CarParser.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

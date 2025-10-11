@@ -48,6 +48,7 @@ public static class PersistenceServicesRegistration
     services.AddScoped<ITransmissionTypeRepository, TransmissionTypeRepository>();
 
     // Unit of work abstractions
+    services.AddScoped<IBodyTypeUnitOfWork, BodyTypeUnitOfWork>();
 
     return services;
   }

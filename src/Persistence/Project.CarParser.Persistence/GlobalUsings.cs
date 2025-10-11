@@ -16,3 +16,4 @@ global using Project.CarParser.Persistence.Repositories;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Project.CarParser.Application.Contracts.Repositories.UnOfWrkRep;
 global using Microsoft.EntityFrameworkCore.Storage;
+global using Project.CarParser.Persistence.Repositories.UnOfWrkRep;

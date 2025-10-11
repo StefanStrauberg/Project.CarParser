@@ -14,3 +14,4 @@ global using Project.CarParser.Application.Exceptions;
 global using Project.CarParser.Application.Features.BodyTypes.Commands;
 global using Project.CarParser.Application.Features.BodyTypes.Queries;
 global using Project.CarParser.Application.Models.Request;
+global using Project.CarParser.Persistence;

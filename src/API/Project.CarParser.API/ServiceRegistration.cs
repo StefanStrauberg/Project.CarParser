@@ -19,7 +19,7 @@ public static class ServiceRegistration
     builder.Services.AddApplicationServices();
     builder.Services.AddSpecificationServices();
     builder.Services.AddQueryFilterParserServices();
-    // builder.Services.AddPersistenceServices(builder.Configuration);
+    builder.Services.AddPersistenceServices(builder.Configuration);
 
     // API Infrastructure
     builder.Services.AddControllers();
