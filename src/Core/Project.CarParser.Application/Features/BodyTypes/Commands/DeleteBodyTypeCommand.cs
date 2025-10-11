@@ -8,7 +8,7 @@ internal class DeleteBodyTypeCommandHandler(IBodyTypeUnitOfWork bodyTypeUnitOfWo
 : DeleteEntityCommandHandler<BodyType, DeleteBodyTypeCommand>(specification,
                                                               queryFilterParser)
 {
-  protected override async void DeleteEntity(BodyType entity)
+  protected override void DeleteEntity(BodyType entity)
   {
     bodyTypeUnitOfWork.BodyTypies.DeleteOne(entity);
     bodyTypeUnitOfWork.Complete();

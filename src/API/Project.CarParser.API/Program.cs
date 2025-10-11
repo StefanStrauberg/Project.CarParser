@@ -9,8 +9,16 @@ try
 
     // Register Services
     builder.AddApplicationServices();
-
-    var app = builder.Build();
+    WebApplication? app;
+    try
+    {
+        app = builder.Build();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Startup error: " + ex.Message);
+        throw;
+    }
 
     // Register Middlewares
     app.ConfigurePipeline();

@@ -1,13 +1,13 @@
 namespace Project.CarParser.Persistence.Repositories.UnOfWrkRep;
 
-internal class UnitOfWork(ApplicationDbContext applicationContext) : IUnitOfWork, IDisposable
+internal class UnitOfWork(ApplicationDbContext applicationDbContext) : IUnitOfWork, IDisposable
 {
   bool _disposed = false;
   IDbContextTransaction? _transaction;
 
   void IUnitOfWork.Complete()
   {
-    applicationContext.SaveChanges();
+    applicationDbContext.SaveChanges();
 
     if (_transaction is not null)
       _transaction?.Commit();
@@ -15,17 +15,17 @@ internal class UnitOfWork(ApplicationDbContext applicationContext) : IUnitOfWork
 
   async Task IUnitOfWork.CompleteAsync(CancellationToken cancellationToken)
   {
-    await applicationContext.SaveChangesAsync(cancellationToken);
+    await applicationDbContext.SaveChangesAsync(cancellationToken);
 
     if (_transaction is not null)
       await _transaction.CommitAsync(cancellationToken);
   }
 
   void IUnitOfWork.StartTransaction()
-    => _transaction = applicationContext.Database.BeginTransaction();
+    => _transaction = applicationDbContext.Database.BeginTransaction();
 
   async Task IUnitOfWork.StartTransactionAsync(CancellationToken cancellationToken)
-    => _transaction = await applicationContext.Database.BeginTransactionAsync(cancellationToken);
+    => _transaction = await applicationDbContext.Database.BeginTransactionAsync(cancellationToken);
 
   void IDisposable.Dispose()
   {
@@ -38,7 +38,7 @@ internal class UnitOfWork(ApplicationDbContext applicationContext) : IUnitOfWork
     if (!_disposed)
     {
       if (disposing)
-        applicationContext.Dispose();
+        applicationDbContext.Dispose();
 
       _disposed = true;
     }
