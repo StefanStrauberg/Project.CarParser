@@ -13,6 +13,7 @@ public static class SpecificationServicesRegistration
   public static IServiceCollection AddSpecificationServices(this IServiceCollection services)
   {
     services.AddScoped(typeof(ISpecification<>), typeof(GenericSpecification<>));
+    services.AddScoped<IBodyTypeSpecification, BodyTypeSpecification>();
     return services;
   }
 }

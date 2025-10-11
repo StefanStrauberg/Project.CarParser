@@ -11,9 +11,4 @@ public static class DefaultEntities
   /// The name of the response header that exposes pagination metadata.
   /// </summary>
   public static string ExposedHeaders { get; } = "X-Pagination";
-
-  /// <summary>
-  /// The file path pattern for logging output, used by logging providers such as Serilog.
-  /// </summary>
-  public static string LoggingTo { get; } = "logs/log-.txt";
 }
