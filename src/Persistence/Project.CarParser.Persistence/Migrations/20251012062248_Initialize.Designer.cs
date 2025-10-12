@@ -12,7 +12,7 @@ using Project.CarParser.Persistence.Context;
 namespace Project.CarParser.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251011222832_Initialize")]
+    [Migration("20251012062248_Initialize")]
     partial class Initialize
     {
         /// <inheritdoc />

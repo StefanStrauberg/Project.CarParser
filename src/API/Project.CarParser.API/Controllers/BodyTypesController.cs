@@ -29,16 +29,16 @@ public class BodyTypesController(ISender sender) : BaseAPIController(sender)
 
   [HttpPost]
   [ProducesResponseType(StatusCodes.Status200OK)]
-  public async Task<IActionResult> CreateBodyType(CreateBodyTypeCommand createBodyTypeCommand,
+  public async Task<IActionResult> CreateBodyType([FromBody] CreateBodyTypeDTO createBodyTypeDTO,
                                                   CancellationToken cancellationToken)
-    => Ok(await Sender.Send(createBodyTypeCommand, cancellationToken));
+    => Ok(await Sender.Send(new CreateBodyTypeCommand(createBodyTypeDTO), cancellationToken));
 
   [HttpPut]
   [ProducesResponseType(StatusCodes.Status200OK)]
   [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status404NotFound)]
-  public async Task<IActionResult> UpdateBodyType(UpdateBodyTypeCommand updateBodyTypeCommand,
+  public async Task<IActionResult> UpdateBodyType(UpdateBodyTypeDTO updateBodyTypeDTO,
                                                   CancellationToken cancellationToken)
-    => Ok(await Sender.Send(updateBodyTypeCommand, cancellationToken));
+    => Ok(await Sender.Send(new UpdateBodyTypeCommand(updateBodyTypeDTO), cancellationToken));
 
   [HttpDelete("{id}")]
   [ProducesResponseType(StatusCodes.Status200OK)]

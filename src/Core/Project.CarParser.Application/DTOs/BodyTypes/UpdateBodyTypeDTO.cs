@@ -6,8 +6,12 @@ public class UpdateBodyTypeDTO : BaseBodyTypeDTO, IMapWith<BodyType>
 
   void IMapWith<BodyType>.Mapping(Profile profile)
   {
-    profile.CreateMap<BodyType, ShortBodyTypeDTO>()
+    profile.CreateMap<UpdateBodyTypeDTO, BodyType>()
            .ForMember(dest => dest.Id,
-                      opt => opt.MapFrom(src => src.Id));
+                      opt => opt.MapFrom(src => src.Id))
+           .ForMember(dest => dest.Name,
+                      opt => opt.MapFrom(src => src.Name))
+           .ForMember(dest => dest.Number,
+                      opt => opt.MapFrom(src => src.Number));
   }
 }

@@ -12,7 +12,7 @@ public static class SpecificationServicesRegistration
   /// <returns>The updated <see cref="IServiceCollection"/> for fluent chaining.</returns>
   public static IServiceCollection AddSpecificationServices(this IServiceCollection services)
   {
-    services.AddScoped(typeof(ISpecification<>), typeof(GenericSpecification<>));
+    // services.AddScoped(typeof(ISpecification<>), typeof(GenericSpecification<>));
     services.AddScoped<IBodyTypeSpecification, BodyTypeSpecification>();
     return services;
   }
