@@ -16,6 +16,7 @@ public static class SpecificationServicesRegistration
     services.AddScoped<IBodyTypeSpecification, BodyTypeSpecification>();
     services.AddScoped<IEngineTypeSpecification, EngineTypeSpecification>();
     services.AddScoped<IPlaceCitySpecification, PlaceCitySpecification>();
+    services.AddScoped<IPlaceRegionSpecification, PlaceRegionSpecification>();
 
     return services;
   }

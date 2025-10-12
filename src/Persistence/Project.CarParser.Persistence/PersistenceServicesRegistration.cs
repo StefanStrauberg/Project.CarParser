@@ -51,6 +51,7 @@ public static class PersistenceServicesRegistration
     services.AddScoped<IBodyTypeUnitOfWork, BodyTypeUnitOfWork>();
     services.AddScoped<IEngineTypeUnitOfWork, EngineTypeUnitOfWork>();
     services.AddScoped<IPlaceCityUnitOfWork, PlaceCityUnitOfWork>();
+    services.AddScoped<IPlaceRegionUnitOfWork, PlaceRegionUnitOfWork>();
 
     return services;
   }

@@ -30,3 +30,4 @@ global using Project.CarParser.Application.Features.Core.Commands;
 global using Project.CarParser.Application.Contracts.Repositories.UnOfWrkRep;
 global using Project.CarParser.Application.DTOs.EngineTypes;
 global using Project.CarParser.Application.DTOs.PlaceCities;
+global using Project.CarParser.Application.DTOs.PlaceRegions;

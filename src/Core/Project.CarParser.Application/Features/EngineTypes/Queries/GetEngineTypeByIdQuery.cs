@@ -2,7 +2,7 @@ namespace Project.CarParser.Application.Features.EngineTypes.Queries;
 
 public record GetEngineTypeByIdQuery(Guid Id) : FindEntityByIdQuery<DetailEngineTypeDTO>(Id);
 
-internal class GetEngineTypeByIdQueryHandler(IEngineTypeUnitOfWork EngineTypeUnitOfWork,
+internal class GetEngineTypeByIdQueryHandler(IEngineTypeUnitOfWork engineTypeUnitOfWork,
                                              IEngineTypeSpecification specification,
                                              IQueryFilterParser queryFilterParser,
                                              IMapper mapper)
@@ -27,7 +27,7 @@ internal class GetEngineTypeByIdQueryHandler(IEngineTypeUnitOfWork EngineTypeUni
   protected override async Task EnsureEntityExistAsync(ISpecification<EngineType> specification,
                                                        CancellationToken cancellationToken)
   {
-    bool exists = await EngineTypeUnitOfWork.EngineTypies.AnyByQueryAsync(specification, cancellationToken);
+    bool exists = await engineTypeUnitOfWork.EngineTypies.AnyByQueryAsync(specification, cancellationToken);
 
     if (exists is not true)
       throw new EntityNotFoundException(typeof(EngineType), specification.ToString() ?? string.Empty);
@@ -35,5 +35,5 @@ internal class GetEngineTypeByIdQueryHandler(IEngineTypeUnitOfWork EngineTypeUni
 
   protected override async Task<EngineType> FetchEntityAsync(ISpecification<EngineType> specification,
                                                              CancellationToken cancellationToken)
-    => await EngineTypeUnitOfWork.EngineTypies.GetOneShortAsync(specification, cancellationToken);
+    => await engineTypeUnitOfWork.EngineTypies.GetOneShortAsync(specification, cancellationToken);
 }

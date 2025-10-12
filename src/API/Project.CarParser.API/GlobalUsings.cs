@@ -21,3 +21,6 @@ global using Project.CarParser.Application.Features.EngineTypes.Queries;
 global using Project.CarParser.Application.DTOs.PlaceCities;
 global using Project.CarParser.Application.Features.PlaceCities.Commands;
 global using Project.CarParser.Application.Features.PlaceCities.Queries;
+global using Project.CarParser.Application.DTOs.PlaceRegions;
+global using Project.CarParser.Application.Features.PlaceRegions.Commands;
+global using Project.CarParser.Application.Features.PlaceRegions.Queries;

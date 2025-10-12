@@ -2,7 +2,7 @@ namespace Project.CarParser.Application.Features.EngineTypes.Queries;
 
 public record GetEngineTypesByFilterQuery(RequestParameters Parameters) : FindEntitiesByFilterQuery<ShortEngineTypeDTO>(Parameters);
 
-internal class GetEngineTypesByFilterQueryHandler(IEngineTypeUnitOfWork EngineTypeUnitOfWork,
+internal class GetEngineTypesByFilterQueryHandler(IEngineTypeUnitOfWork engineTypeUnitOfWork,
                                                   IEngineTypeSpecification specification,
                                                   IQueryFilterParser queryFilterParser,
                                                   IMapper mapper)
@@ -12,9 +12,9 @@ internal class GetEngineTypesByFilterQueryHandler(IEngineTypeUnitOfWork EngineTy
 {
   protected override async Task<int> CountResultsAsync(ISpecification<EngineType> specification,
                                                        CancellationToken cancellationToken)
-    => await EngineTypeUnitOfWork.EngineTypies.GetCountAsync(specification, cancellationToken);
+    => await engineTypeUnitOfWork.EngineTypies.GetCountAsync(specification, cancellationToken);
 
   protected override async Task<IEnumerable<EngineType>> FetchEntitiesAsync(ISpecification<EngineType> specification,
                                                                             CancellationToken cancellationToken)
-    => await EngineTypeUnitOfWork.EngineTypies.GetManyShortAsync(specification, cancellationToken);
+    => await engineTypeUnitOfWork.EngineTypies.GetManyShortAsync(specification, cancellationToken);
 }
