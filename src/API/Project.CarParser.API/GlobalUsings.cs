@@ -15,3 +15,6 @@ global using Project.CarParser.Application.Features.BodyTypes.Commands;
 global using Project.CarParser.Application.Features.BodyTypes.Queries;
 global using Project.CarParser.Application.Models.Request;
 global using Project.CarParser.Persistence;
+global using Project.CarParser.Application.DTOs.EngineTypes;
+global using Project.CarParser.Application.Features.EngineTypes.Commands;
+global using Project.CarParser.Application.Features.EngineTypes.Queries;

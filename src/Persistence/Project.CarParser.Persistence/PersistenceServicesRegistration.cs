@@ -41,14 +41,15 @@ public static class PersistenceServicesRegistration
 
     // Entity-specific repositories
     services.AddScoped<IBodyTypeRepository, BodyTypeRepository>();
-    services.AddScoped<ICarListingRepository, CarListingRepository>();
     services.AddScoped<IEngineTypeRepository, EngineTypeRepository>();
     services.AddScoped<IPlaceCityRepository, PlaceCityRepository>();
     services.AddScoped<IPlaceRegionRepository, PlaceRegionRepository>();
     services.AddScoped<ITransmissionTypeRepository, TransmissionTypeRepository>();
+    services.AddScoped<ICarListingRepository, CarListingRepository>();
 
     // Unit of work abstractions
     services.AddScoped<IBodyTypeUnitOfWork, BodyTypeUnitOfWork>();
+    services.AddScoped<IEngineTypeUnitOfWork, EngineTypeUnitOfWork>();
 
     return services;
   }
