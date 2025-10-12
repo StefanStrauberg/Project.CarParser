@@ -24,3 +24,6 @@ global using Project.CarParser.Application.Features.PlaceCities.Queries;
 global using Project.CarParser.Application.DTOs.PlaceRegions;
 global using Project.CarParser.Application.Features.PlaceRegions.Commands;
 global using Project.CarParser.Application.Features.PlaceRegions.Queries;
+global using Project.CarParser.Application.DTOs.TransmissionTypes;
+global using Project.CarParser.Application.Features.TransmissionTypes.Commands;
+global using Project.CarParser.Application.Features.TransmissionTypes.Queries;

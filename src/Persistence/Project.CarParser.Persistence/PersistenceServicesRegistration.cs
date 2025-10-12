@@ -52,6 +52,7 @@ public static class PersistenceServicesRegistration
     services.AddScoped<IEngineTypeUnitOfWork, EngineTypeUnitOfWork>();
     services.AddScoped<IPlaceCityUnitOfWork, PlaceCityUnitOfWork>();
     services.AddScoped<IPlaceRegionUnitOfWork, PlaceRegionUnitOfWork>();
+    services.AddScoped<ITransmissionTypeUnitOfWork, TransmissionTypeUnitOfWork>();
 
     return services;
   }
