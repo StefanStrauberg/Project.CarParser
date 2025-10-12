@@ -1,8 +1,7 @@
 namespace Project.CarParser.Application.Features.EngineTypes.Commands;
 
 public record UpdateEngineTypeCommand(UpdateEngineTypeDTO UpdateEngineTypeDTO)
-  : UpdateEntityCommand<EngineType, UpdateEngineTypeDTO>(UpdateEngineTypeDTO.Id,
-                                                         UpdateEngineTypeDTO);
+  : UpdateEntityCommand<EngineType, UpdateEngineTypeDTO>(UpdateEngineTypeDTO.Id, UpdateEngineTypeDTO);
 
 internal class UpdateEngineTypeCommandHandler(IEngineTypeUnitOfWork EngineTypeUnitOfWork,
                                               IEngineTypeSpecification specification,

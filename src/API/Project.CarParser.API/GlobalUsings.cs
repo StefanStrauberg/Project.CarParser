@@ -18,3 +18,6 @@ global using Project.CarParser.Persistence;
 global using Project.CarParser.Application.DTOs.EngineTypes;
 global using Project.CarParser.Application.Features.EngineTypes.Commands;
 global using Project.CarParser.Application.Features.EngineTypes.Queries;
+global using Project.CarParser.Application.DTOs.PlaceCities;
+global using Project.CarParser.Application.Features.PlaceCities.Commands;
+global using Project.CarParser.Application.Features.PlaceCities.Queries;

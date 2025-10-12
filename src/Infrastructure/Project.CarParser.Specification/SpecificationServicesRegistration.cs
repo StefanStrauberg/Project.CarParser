@@ -15,6 +15,8 @@ public static class SpecificationServicesRegistration
     // services.AddScoped(typeof(ISpecification<>), typeof(GenericSpecification<>));
     services.AddScoped<IBodyTypeSpecification, BodyTypeSpecification>();
     services.AddScoped<IEngineTypeSpecification, EngineTypeSpecification>();
+    services.AddScoped<IPlaceCitySpecification, PlaceCitySpecification>();
+
     return services;
   }
 }

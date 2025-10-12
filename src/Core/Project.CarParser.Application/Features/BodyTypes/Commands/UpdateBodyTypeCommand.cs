@@ -1,8 +1,7 @@
 namespace Project.CarParser.Application.Features.BodyTypes.Commands;
 
 public record UpdateBodyTypeCommand(UpdateBodyTypeDTO UpdateBodyTypeDTO)
-  : UpdateEntityCommand<BodyType, UpdateBodyTypeDTO>(UpdateBodyTypeDTO.Id,
-                                                     UpdateBodyTypeDTO);
+  : UpdateEntityCommand<BodyType, UpdateBodyTypeDTO>(UpdateBodyTypeDTO.Id, UpdateBodyTypeDTO);
 
 internal class UpdateBodyTypeCommandHandler(IBodyTypeUnitOfWork bodyTypeUnitOfWork,
                                             IBodyTypeSpecification specification,
