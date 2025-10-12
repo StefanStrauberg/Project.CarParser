@@ -21,7 +21,7 @@ internal abstract class CreateEntityCommandHandler<TEntity, TDto, TCommand>(ISpe
   where TDto : class
   where TCommand : CreateEntityCommand<TDto>
 {
-  async Task<Unit> IRequestHandler<TCommand, Unit>.Handle(TCommand request, CancellationToken cancellationToken)
+  public async Task<Unit> Handle(TCommand request, CancellationToken cancellationToken)
   {
     var filter = BuildDuplicateCheckFilter(request.CreateDto);
     var specification = BuildSpecification(filter);
@@ -70,7 +70,7 @@ internal abstract class CreateEntityCommandHandler<TEntity, TDto, TCommand>(ISpe
   /// </summary>
   /// <param name="dto">The input DTO used for creation.</param>
   /// <returns>A newly constructed entity.</returns>
-  TEntity MapToEntity(TDto dto)
+  protected TEntity MapToEntity(TDto dto)
     => mapper.Map<TEntity>(dto);
 
   /// <summary>

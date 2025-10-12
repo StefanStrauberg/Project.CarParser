@@ -27,14 +27,14 @@ internal class CreateEngineTypeCommandHandler(IEngineTypeUnitOfWork EngineTypeUn
   protected override void PersistNewEntity(EngineType entity)
   {
     EngineTypeUnitOfWork.StartTransaction();
-    EngineTypeUnitOfWork.EngineTypies.InsertOne(entity);
+    EngineTypeUnitOfWork.EngineTypes.InsertOne(entity);
     EngineTypeUnitOfWork.Complete();
   }
 
   protected override async Task ValidateEntityDoesNotExistAsync(ISpecification<EngineType> specification,
                                                                 CancellationToken cancellationToken)
   {
-    bool exists = await EngineTypeUnitOfWork.EngineTypies.AnyByQueryAsync(specification,
+    bool exists = await EngineTypeUnitOfWork.EngineTypes.AnyByQueryAsync(specification,
                                                                           cancellationToken);
 
     if (exists is true)

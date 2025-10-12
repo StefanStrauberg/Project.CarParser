@@ -27,14 +27,14 @@ internal class CreateBodyTypeCommandHandler(IBodyTypeUnitOfWork bodyTypeUnitOfWo
   protected override void PersistNewEntity(BodyType entity)
   {
     bodyTypeUnitOfWork.StartTransaction();
-    bodyTypeUnitOfWork.BodyTypies.InsertOne(entity);
+    bodyTypeUnitOfWork.BodyTypes.InsertOne(entity);
     bodyTypeUnitOfWork.Complete();
   }
 
   protected override async Task ValidateEntityDoesNotExistAsync(ISpecification<BodyType> specification,
                                                                 CancellationToken cancellationToken)
   {
-    bool exists = await bodyTypeUnitOfWork.BodyTypies.AnyByQueryAsync(specification,
+    bool exists = await bodyTypeUnitOfWork.BodyTypes.AnyByQueryAsync(specification,
                                                                       cancellationToken);
 
     if (exists is true)

@@ -10,14 +10,14 @@ internal class DeleteBodyTypeCommandHandler(IBodyTypeUnitOfWork bodyTypeUnitOfWo
 {
   protected override void DeleteEntity(BodyType entity)
   {
-    bodyTypeUnitOfWork.BodyTypies.DeleteOne(entity);
+    bodyTypeUnitOfWork.BodyTypes.DeleteOne(entity);
     bodyTypeUnitOfWork.Complete();
   }
 
   protected override async Task EnsureEntityExistAsync(ISpecification<BodyType> specification,
                                                        CancellationToken cancellationToken)
   {
-    bool exists = await bodyTypeUnitOfWork.BodyTypies.AnyByQueryAsync(specification,
+    bool exists = await bodyTypeUnitOfWork.BodyTypes.AnyByQueryAsync(specification,
                                                                       cancellationToken);
 
     if (exists is not true)
@@ -26,5 +26,5 @@ internal class DeleteBodyTypeCommandHandler(IBodyTypeUnitOfWork bodyTypeUnitOfWo
 
   protected override async Task<BodyType> FetchEntityAsync(ISpecification<BodyType> specification,
                                                            CancellationToken cancellationToken)
-    => await bodyTypeUnitOfWork.BodyTypies.GetOneShortAsync(specification, cancellationToken);
+    => await bodyTypeUnitOfWork.BodyTypes.GetOneShortAsync(specification, cancellationToken);
 }

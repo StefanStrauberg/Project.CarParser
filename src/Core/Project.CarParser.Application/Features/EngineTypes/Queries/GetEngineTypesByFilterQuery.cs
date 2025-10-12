@@ -12,9 +12,9 @@ internal class GetEngineTypesByFilterQueryHandler(IEngineTypeUnitOfWork engineTy
 {
   protected override async Task<int> CountResultsAsync(ISpecification<EngineType> specification,
                                                        CancellationToken cancellationToken)
-    => await engineTypeUnitOfWork.EngineTypies.GetCountAsync(specification, cancellationToken);
+    => await engineTypeUnitOfWork.EngineTypes.GetCountAsync(specification, cancellationToken);
 
   protected override async Task<IEnumerable<EngineType>> FetchEntitiesAsync(ISpecification<EngineType> specification,
                                                                             CancellationToken cancellationToken)
-    => await engineTypeUnitOfWork.EngineTypies.GetManyShortAsync(specification, cancellationToken);
+    => await engineTypeUnitOfWork.EngineTypes.GetManyShortAsync(specification, cancellationToken);
 }

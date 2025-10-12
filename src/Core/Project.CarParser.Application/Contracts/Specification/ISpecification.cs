@@ -25,6 +25,14 @@ public interface ISpecification<TBase> where TBase : BaseEntity
   Expression<Func<TBase, object>>? OrderByDescending { get; }
 
   /// <summary>
+  /// Gets the list of expressions used to include related entities.
+  /// </summary>
+  /// <remarks>
+  /// These expressions specify navigation properties to include in the query.
+  /// </remarks>
+  IReadOnlyList<IIncludeChain<TBase>> IncludeChains { get; }
+
+  /// <summary>
   /// Gets the maximum number of entities to retrieve.
   /// </summary>
   int Take { get; }
@@ -33,6 +41,14 @@ public interface ISpecification<TBase> where TBase : BaseEntity
   /// Gets the number of entities to skip in the query.
   /// </summary>
   int Skip { get; }
+
+  /// <summary>
+  /// Adds an include expression for eager loading of related entities.
+  /// </summary>
+  /// <typeparam name="TProperty">The type of the related property.</typeparam>
+  /// <param name="include">The navigation property to include.</param>
+  /// <returns>The updated specification with the include applied.</returns>
+  ISpecification<TBase> AddInclude<TProperty>(Expression<Func<TBase, TProperty>> include);
 
   /// <summary>
   /// Adds a filtering criterion to the specification.

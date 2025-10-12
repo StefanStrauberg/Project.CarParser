@@ -14,7 +14,7 @@ internal class UpdateBodyTypeCommandHandler(IBodyTypeUnitOfWork bodyTypeUnitOfWo
   protected override async Task EnsureEntityExistAsync(ISpecification<BodyType> specification,
                                                        CancellationToken cancellationToken)
   {
-    bool exists = await bodyTypeUnitOfWork.BodyTypies.AnyByQueryAsync(specification,
+    bool exists = await bodyTypeUnitOfWork.BodyTypes.AnyByQueryAsync(specification,
                                                                       cancellationToken);
 
     if (exists is not true)
@@ -23,11 +23,11 @@ internal class UpdateBodyTypeCommandHandler(IBodyTypeUnitOfWork bodyTypeUnitOfWo
 
   protected override async Task<BodyType> FetchEntityAsync(ISpecification<BodyType> specification,
                                                            CancellationToken cancellationToken)
-    => await bodyTypeUnitOfWork.BodyTypies.GetOneShortAsync(specification, cancellationToken);
+    => await bodyTypeUnitOfWork.BodyTypes.GetOneShortAsync(specification, cancellationToken);
 
   protected override void UpdateEntity(BodyType entity)
   {
-    bodyTypeUnitOfWork.BodyTypies.ReplaceOne(entity);
+    bodyTypeUnitOfWork.BodyTypes.ReplaceOne(entity);
     bodyTypeUnitOfWork.Complete();
   }
 }

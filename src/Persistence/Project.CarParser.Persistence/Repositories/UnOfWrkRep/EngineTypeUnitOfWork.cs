@@ -10,7 +10,7 @@ internal class EngineTypeUnitOfWork(IExistenceQueryRepository<EngineType> existe
                                   ApplicationDbContext applicationDbContext)
   : UnitOfWork(applicationDbContext), IEngineTypeUnitOfWork
 {
-  IEngineTypeRepository IEngineTypeUnitOfWork.EngineTypies
+  IEngineTypeRepository IEngineTypeUnitOfWork.EngineTypes
     => new EngineTypeRepository(existenceQueryRepository,
                                 countRepository,
                                 manyQueryRepository,

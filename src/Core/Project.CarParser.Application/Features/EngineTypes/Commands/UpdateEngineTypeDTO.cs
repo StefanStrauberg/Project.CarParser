@@ -14,7 +14,7 @@ internal class UpdateEngineTypeCommandHandler(IEngineTypeUnitOfWork EngineTypeUn
   protected override async Task EnsureEntityExistAsync(ISpecification<EngineType> specification,
                                                        CancellationToken cancellationToken)
   {
-    bool exists = await EngineTypeUnitOfWork.EngineTypies.AnyByQueryAsync(specification,
+    bool exists = await EngineTypeUnitOfWork.EngineTypes.AnyByQueryAsync(specification,
                                                                           cancellationToken);
 
     if (exists is not true)
@@ -23,11 +23,11 @@ internal class UpdateEngineTypeCommandHandler(IEngineTypeUnitOfWork EngineTypeUn
 
   protected override async Task<EngineType> FetchEntityAsync(ISpecification<EngineType> specification,
                                                              CancellationToken cancellationToken)
-    => await EngineTypeUnitOfWork.EngineTypies.GetOneShortAsync(specification, cancellationToken);
+    => await EngineTypeUnitOfWork.EngineTypes.GetOneShortAsync(specification, cancellationToken);
 
   protected override void UpdateEntity(EngineType entity)
   {
-    EngineTypeUnitOfWork.EngineTypies.ReplaceOne(entity);
+    EngineTypeUnitOfWork.EngineTypes.ReplaceOne(entity);
     EngineTypeUnitOfWork.Complete();
   }
 }

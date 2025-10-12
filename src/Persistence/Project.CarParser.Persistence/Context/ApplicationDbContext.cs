@@ -1,6 +1,6 @@
 namespace Project.CarParser.Persistence.Context;
 
-internal class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
   : DbContext(options)
 {
   public DbSet<CarListing> CarListings { get; set; }

@@ -5,5 +5,5 @@ namespace Project.CarParser.Application.Contracts.Repositories.UnOfWrkRep;
 /// </summary>
 public interface IEngineTypeUnitOfWork : IUnitOfWork
 {
-  IEngineTypeRepository EngineTypies { get; }
+  IEngineTypeRepository EngineTypes { get; }
 }

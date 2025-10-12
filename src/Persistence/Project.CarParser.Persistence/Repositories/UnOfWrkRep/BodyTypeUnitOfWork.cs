@@ -10,7 +10,7 @@ internal class BodyTypeUnitOfWork(IExistenceQueryRepository<BodyType> existenceQ
                                   ApplicationDbContext applicationDbContext)
   : UnitOfWork(applicationDbContext), IBodyTypeUnitOfWork
 {
-  IBodyTypeRepository IBodyTypeUnitOfWork.BodyTypies
+  IBodyTypeRepository IBodyTypeUnitOfWork.BodyTypes
     => new BodyTypeRepository(existenceQueryRepository,
                               countRepository,
                               manyQueryRepository,

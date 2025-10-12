@@ -1,9 +1,8 @@
 namespace Project.CarParser.Application.Contracts.Repositories;
 
 public interface IBodyTypeRepository
-  : IManyQueryRepository<BodyType>,
-    IOneQueryRepository<BodyType>,
-    IExistenceQueryRepository<BodyType>,
+  : IRepository<BodyType>,
+    IManyQueryRepository<BodyType>,
     ICountRepository<BodyType>,
     IInsertRepository<BodyType>,
     IDeleteRepository<BodyType>,

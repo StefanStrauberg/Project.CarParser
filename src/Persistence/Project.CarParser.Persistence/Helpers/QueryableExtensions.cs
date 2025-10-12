@@ -3,6 +3,51 @@ namespace Project.CarParser.Persistence.Helpers;
 internal static class QueryableExtensions
 {
   /// <summary>
+  /// Applies multiple include expressions to the query.
+  /// </summary>
+  /// <typeparam name="T">The entity type being queried.</typeparam>
+  /// <param name="query">The base query.</param>
+  /// <param name="includeChains">Collection of include chains specifying navigation properties.</param>
+  /// <returns>An <see cref="IQueryable{T}"/> with the applied includes.</returns>
+  /// <remarks>
+  /// Uses reflection to dynamically invoke <c>Include</c> and <c>ThenInclude</c> methods from EF Core.
+  /// Supports nested includes via <see cref="IIncludeChain{T}"/>.
+  /// </remarks>
+  public static IQueryable<TBase> ApplyIncludes<TBase>(this IQueryable<TBase> query, IEnumerable<IIncludeChain<TBase>> includeChains)
+    where TBase : BaseEntity
+  {
+    foreach (var chain in includeChains)
+    {
+      object current = query;
+      bool first = true;
+      foreach (var (entityType, propertyType, expression) in chain.Includes)
+      {
+        if (first)
+        {
+          var includeMethod = typeof(EntityFrameworkQueryableExtensions).GetMethods()
+                                                                        .First(m => m.Name == nameof(EntityFrameworkQueryableExtensions.Include) &&
+                                                                                    m.GetParameters().Length == 2)
+                                                                        .MakeGenericMethod(typeof(TBase), propertyType);
+          current = includeMethod.Invoke(null, [current, expression])!;
+          first = false;
+        }
+        else
+        {
+          var thenIncludeMethod = typeof(EntityFrameworkQueryableExtensions).GetMethods()
+                                                                            .First(m => m.Name == nameof(EntityFrameworkQueryableExtensions.ThenInclude) &&
+                                                                                        m.GetParameters().Length == 2 &&
+                                                                                        m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == typeof(IIncludableQueryable<,>))
+                                                                            .MakeGenericMethod(typeof(TBase), entityType, propertyType);
+          current = thenIncludeMethod.Invoke(null, [current, expression])!;
+        }
+      }
+      query = (IQueryable<TBase>)current;
+    }
+    return query;
+  }
+
+
+  /// <summary>
   /// Applies a <c>Take</c> clause to the query if the value is greater than zero.
   /// </summary>
   /// <typeparam name="T">The entity type.</typeparam>
@@ -56,5 +101,14 @@ internal static class QueryableExtensions
       return query;
 
     return descending ? query.OrderByDescending(keySelector) : query.OrderBy(keySelector);
+  }
+
+  public static IQueryable<T> ApplyOrderBy<T>(this IQueryable<T> query, Expression<Func<T, object>>? orderBy, Expression<Func<T, object>>? orderByDescending)
+  {
+    if (orderByDescending != null)
+      return query.OrderByDescending(orderByDescending);
+    if (orderBy != null)
+      return query.OrderBy(orderBy);
+    return query;
   }
 }

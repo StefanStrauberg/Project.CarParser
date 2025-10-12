@@ -2,15 +2,22 @@ namespace Project.CarParser.Persistence.Repositories;
 
 public class CarListingRepository(IExistenceQueryRepository<CarListing> existenceQueryRepository,
                                   ICountRepository<CarListing> countRepository,
-                                  IManyQueryRepository<CarListing> manyQueryRepository,
-                                  IOneQueryRepository<CarListing> oneQueryRepository,
                                   IInsertRepository<CarListing> insertRepository,
                                   IDeleteRepository<CarListing> deleteRepository,
-                                  IReplaceRepository<CarListing> replaceRepository) : ICarListingRepository
+                                  IReplaceRepository<CarListing> replaceRepository,
+                                  ApplicationDbContext context) : ICarListingRepository
 {
   async Task<CarListing> IOneQueryRepository<CarListing>.GetOneShortAsync(ISpecification<CarListing> specification,
                                                                           CancellationToken cancellationToken)
-    => await oneQueryRepository.GetOneShortAsync(specification, cancellationToken);
+  {
+    var query = context.CarListings.AsNoTracking();
+    query = query.ApplyIncludes(specification.IncludeChains);
+    query = query.ApplyWhere(specification.Criterias);
+    query = query.ApplySkip(specification.Skip);
+    query = query.ApplyTake(specification.Take);
+
+    return await query.FirstAsync(cancellationToken);
+  }
 
   async Task<bool> IExistenceQueryRepository<CarListing>.AnyByQueryAsync(ISpecification<CarListing> specification,
                                                                          CancellationToken cancellationToken)
@@ -22,7 +29,16 @@ public class CarListingRepository(IExistenceQueryRepository<CarListing> existenc
 
   async Task<IEnumerable<CarListing>> IManyQueryRepository<CarListing>.GetManyShortAsync(ISpecification<CarListing> specification,
                                                                                          CancellationToken cancellationToken)
-    => await manyQueryRepository.GetManyShortAsync(specification, cancellationToken);
+  {
+    var query = context.CarListings.AsNoTracking();
+    query = query.ApplyIncludes(specification.IncludeChains);
+    query = query.ApplyWhere(specification.Criterias);
+    query = query.ApplyOrderBy(specification.OrderBy, specification.OrderByDescending != null);
+    query = query.ApplySkip(specification.Skip);
+    query = query.ApplyTake(specification.Take);
+
+    return await query.ToListAsync(cancellationToken);
+  }
 
   void IInsertRepository<CarListing>.InsertOne(CarListing entity)
     => insertRepository.InsertOne(entity);

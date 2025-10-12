@@ -1,9 +1,8 @@
 namespace Project.CarParser.Application.Contracts.Repositories;
 
 public interface ICarListingRepository
-  : IManyQueryRepository<CarListing>,
-    IOneQueryRepository<CarListing>,
-    IExistenceQueryRepository<CarListing>,
+  : IRepository<CarListing>,
+    IManyQueryRepository<CarListing>,
     ICountRepository<CarListing>,
     IInsertRepository<CarListing>,
     IDeleteRepository<CarListing>,

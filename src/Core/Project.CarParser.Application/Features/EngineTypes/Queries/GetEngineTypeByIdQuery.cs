@@ -27,7 +27,7 @@ internal class GetEngineTypeByIdQueryHandler(IEngineTypeUnitOfWork engineTypeUni
   protected override async Task EnsureEntityExistAsync(ISpecification<EngineType> specification,
                                                        CancellationToken cancellationToken)
   {
-    bool exists = await engineTypeUnitOfWork.EngineTypies.AnyByQueryAsync(specification, cancellationToken);
+    bool exists = await engineTypeUnitOfWork.EngineTypes.AnyByQueryAsync(specification, cancellationToken);
 
     if (exists is not true)
       throw new EntityNotFoundException(typeof(EngineType), specification.ToString() ?? string.Empty);
@@ -35,5 +35,5 @@ internal class GetEngineTypeByIdQueryHandler(IEngineTypeUnitOfWork engineTypeUni
 
   protected override async Task<EngineType> FetchEntityAsync(ISpecification<EngineType> specification,
                                                              CancellationToken cancellationToken)
-    => await engineTypeUnitOfWork.EngineTypies.GetOneShortAsync(specification, cancellationToken);
+    => await engineTypeUnitOfWork.EngineTypes.GetOneShortAsync(specification, cancellationToken);
 }

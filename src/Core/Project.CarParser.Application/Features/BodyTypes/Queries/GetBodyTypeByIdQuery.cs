@@ -27,7 +27,7 @@ internal class GetBodyTypeByIdQueryHandler(IBodyTypeUnitOfWork bodyTypeUnitOfWor
   protected override async Task EnsureEntityExistAsync(ISpecification<BodyType> specification,
                                                        CancellationToken cancellationToken)
   {
-    bool exists = await bodyTypeUnitOfWork.BodyTypies.AnyByQueryAsync(specification, cancellationToken);
+    bool exists = await bodyTypeUnitOfWork.BodyTypes.AnyByQueryAsync(specification, cancellationToken);
 
     if (exists is not true)
       throw new EntityNotFoundException(typeof(BodyType), specification.ToString() ?? string.Empty);
@@ -35,5 +35,5 @@ internal class GetBodyTypeByIdQueryHandler(IBodyTypeUnitOfWork bodyTypeUnitOfWor
 
   protected override async Task<BodyType> FetchEntityAsync(ISpecification<BodyType> specification,
                                                            CancellationToken cancellationToken)
-    => await bodyTypeUnitOfWork.BodyTypies.GetOneShortAsync(specification, cancellationToken);
+    => await bodyTypeUnitOfWork.BodyTypes.GetOneShortAsync(specification, cancellationToken);
 }

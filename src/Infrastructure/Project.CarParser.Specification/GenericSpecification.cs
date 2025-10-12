@@ -2,13 +2,11 @@ namespace Project.CarParser.Specification;
 
 internal class GenericSpecification<TBase> : ISpecification<TBase> where TBase : BaseEntity
 {
+  // Includes
+  protected readonly List<IIncludeChain<TBase>> _includeChains = [];
+
   // Filters
   protected Expression<Func<TBase, bool>>? _criteria;
-
-  // Filtered Includes
-  protected readonly List<LambdaExpression> _filteredIncludeChains = [];
-
-  public IReadOnlyList<LambdaExpression> FilteredIncludeChains => _filteredIncludeChains.AsReadOnly();
 
   // OrderBy
   protected Expression<Func<TBase, object>>? _orderBy;
@@ -16,7 +14,7 @@ internal class GenericSpecification<TBase> : ISpecification<TBase> where TBase :
 
   // Properties
   public Expression<Func<TBase, bool>>? Criterias => _criteria;
-
+  public IReadOnlyList<IIncludeChain<TBase>> IncludeChains => _includeChains.AsReadOnly();
   public Expression<Func<TBase, object>>? OrderBy => _orderBy;
   public Expression<Func<TBase, object>>? OrderByDescending => _orderByDescending;
 
@@ -25,6 +23,14 @@ internal class GenericSpecification<TBase> : ISpecification<TBase> where TBase :
   public int Skip { get; protected set; }
 
   internal const int MaxPageSize = 1000;
+
+  public virtual ISpecification<TBase> AddInclude<TProperty>(Expression<Func<TBase, TProperty>> include)
+  {
+    var chain = new IncludeChain<TBase>();
+    chain.AddInclude(include);
+    _includeChains.Add(chain);
+    return this;
+  }
 
   public virtual ISpecification<TBase> AddFilter(Expression<Func<TBase, bool>> criteria)
   {
@@ -112,6 +118,21 @@ internal class GenericSpecification<TBase> : ISpecification<TBase> where TBase :
       _orderBy = _orderBy,
       _orderByDescending = _orderByDescending
     };
+
+    foreach (var chain in _includeChains)
+    {
+      var newChain = new IncludeChain<TBase>();
+
+      foreach (var include in chain.Includes)
+      {
+        var method = typeof(IncludeChain<TBase>).GetMethod(nameof(IncludeChain<TBase>.AddTypedInclude))!
+                                                .MakeGenericMethod(include.EntityType, include.PropertyType);
+
+        method.Invoke(newChain, [include.Expression]);
+      }
+
+      clone._includeChains.Add(newChain);
+    }
 
     return clone;
   }

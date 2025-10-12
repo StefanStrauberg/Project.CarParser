@@ -10,14 +10,14 @@ internal class DeleteEngineTypeCommandHandler(IEngineTypeUnitOfWork EngineTypeUn
 {
   protected override void DeleteEntity(EngineType entity)
   {
-    EngineTypeUnitOfWork.EngineTypies.DeleteOne(entity);
+    EngineTypeUnitOfWork.EngineTypes.DeleteOne(entity);
     EngineTypeUnitOfWork.Complete();
   }
 
   protected override async Task EnsureEntityExistAsync(ISpecification<EngineType> specification,
                                                        CancellationToken cancellationToken)
   {
-    bool exists = await EngineTypeUnitOfWork.EngineTypies.AnyByQueryAsync(specification,
+    bool exists = await EngineTypeUnitOfWork.EngineTypes.AnyByQueryAsync(specification,
                                                                           cancellationToken);
 
     if (exists is not true)
@@ -26,5 +26,5 @@ internal class DeleteEngineTypeCommandHandler(IEngineTypeUnitOfWork EngineTypeUn
 
   protected override async Task<EngineType> FetchEntityAsync(ISpecification<EngineType> specification,
                                                              CancellationToken cancellationToken)
-    => await EngineTypeUnitOfWork.EngineTypies.GetOneShortAsync(specification, cancellationToken);
+    => await EngineTypeUnitOfWork.EngineTypes.GetOneShortAsync(specification, cancellationToken);
 }

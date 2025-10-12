@@ -5,5 +5,5 @@ namespace Project.CarParser.Application.Contracts.Repositories.UnOfWrkRep;
 /// </summary>
 public interface IBodyTypeUnitOfWork : IUnitOfWork
 {
-  IBodyTypeRepository BodyTypies { get; }
+  IBodyTypeRepository BodyTypes { get; }
 }

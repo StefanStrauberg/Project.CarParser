@@ -12,9 +12,9 @@ internal class GetBodyTypesByFilterQueryHandler(IBodyTypeUnitOfWork bodyTypeUnit
 {
   protected override async Task<int> CountResultsAsync(ISpecification<BodyType> specification,
                                                        CancellationToken cancellationToken)
-    => await bodyTypeUnitOfWork.BodyTypies.GetCountAsync(specification, cancellationToken);
+    => await bodyTypeUnitOfWork.BodyTypes.GetCountAsync(specification, cancellationToken);
 
   protected override async Task<IEnumerable<BodyType>> FetchEntitiesAsync(ISpecification<BodyType> specification,
                                                                           CancellationToken cancellationToken)
-    => await bodyTypeUnitOfWork.BodyTypies.GetManyShortAsync(specification, cancellationToken);
+    => await bodyTypeUnitOfWork.BodyTypes.GetManyShortAsync(specification, cancellationToken);
 }
