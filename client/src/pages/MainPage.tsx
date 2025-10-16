@@ -21,7 +21,7 @@ import GradientText from "../components/GradientText";
 import ScrollTop from "../components/ScrollTop";
 import { mockApi } from "../mocks/api";
 import type { CarListing } from "../models/CarListing";
-import CarCard from "../components/CarCard";
+import CarCard from "../components/CarCard/index.tsx";
 
 const MainPage = () => {
   const [loading, setLoading] = useState(true);

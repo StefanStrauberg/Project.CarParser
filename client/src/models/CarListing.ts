@@ -13,19 +13,15 @@ export interface CarListing extends BaseEntity {
   manufactureYear: number;
   engineDisplacement: number; // decimal → number
   publishDate: Date;
-
+  image: string;
   placeRegionId: string;
   placeRegion: PlaceRegion;
-
   placeCityId: string;
   placeCity: PlaceCity;
-
   transmissionTypeId: string;
   transmissionType: TransmissionType;
-
   engineTypeId: string;
   engineType: EngineType;
-
   bodyTypeId: string;
   bodyType: BodyType;
 }
