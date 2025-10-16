@@ -1,9 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import MainPage from "./components/MainPage/MainPage";
+import App from "./App";
 
-createRoot(document.getElementById("root")!).render(
+const container = document.getElementById("root");
+if (!container) throw new Error("Root element not found");
+
+createRoot(container).render(
   <StrictMode>
-    <MainPage />
+    <App />
   </StrictMode>
 );
