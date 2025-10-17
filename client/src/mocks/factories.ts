@@ -1,4 +1,4 @@
-// src/mocks/factory.ts
+// src/mocks/factories.ts
 import { faker } from "@faker-js/faker";
 import { randomDate, randomDecimal, randomInt } from "../utils/random";
 import type { BaseEntity } from "../models/BaseEntity";
@@ -72,14 +72,12 @@ export const createCarListing = (): CarListing => {
     manufactureYear: randomInt(1990, new Date().getFullYear()),
     engineDisplacement: randomDecimal(1.0, 6.0, 1),
     publishDate: randomDate(),
-    image: faker.image.vehicle(),
-    // foreign keys
+    image: faker.image.urlLoremFlickr({ category: "car" }), // исправлено, так как faker.image.vehicle() устарел
     placeRegionId: region.id,
     placeCityId: city.id,
     transmissionTypeId: transmission.id,
     engineTypeId: engine.id,
     bodyTypeId: body.id,
-    // embedded entities
     placeRegion: region,
     placeCity: city,
     transmissionType: transmission,

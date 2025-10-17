@@ -1,8 +1,8 @@
-import { CarRental, KeyboardArrowUp, Refresh } from "@mui/icons-material";
+// src/pages/MainPage.tsx
+import { KeyboardArrowUp } from "@mui/icons-material";
 import {
   Alert,
   alpha,
-  AppBar,
   Box,
   CircularProgress,
   Container,
@@ -10,9 +10,7 @@ import {
   Fab,
   Fade,
   Grid,
-  IconButton,
   ThemeProvider,
-  Toolbar,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -21,7 +19,8 @@ import GradientText from "../components/GradientText";
 import ScrollTop from "../components/ScrollTop";
 import { mockApi } from "../mocks/api";
 import type { CarListing } from "../models/CarListing";
-import CarCard from "../components/CarCard/index.tsx";
+import CarCard from "../components/CarCard";
+import AppHeader from "../components/AppBar";
 
 const MainPage = () => {
   const [loading, setLoading] = useState(true);
@@ -33,18 +32,20 @@ const MainPage = () => {
     loadData();
   }, []);
 
-  useEffect(() => {
-    mockApi.getCarListings(15).then(setCars);
-  }, []);
-
   const loadData = async () => {
     try {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setLastUpdate(new Date());
       setError("");
+      // Загружаем данные параллельно
+      const [carsData] = await Promise.all([
+        mockApi.getCarListings(15),
+        new Promise((resolve) => setTimeout(resolve, 1500)), // Имитация загрузки
+      ]);
+      setCars(carsData);
+      setLastUpdate(new Date());
     } catch (err) {
       setError("Ошибка при загрузке данных");
+      console.error("Error loading data:", err);
     } finally {
       setLoading(false);
     }
@@ -54,7 +55,7 @@ const MainPage = () => {
     await loadData();
   };
 
-  const formatTime = (date) => {
+  const formatTime = (date: Date) => {
     return date.toLocaleTimeString("ru-RU", {
       hour: "2-digit",
       minute: "2-digit",
@@ -64,59 +65,13 @@ const MainPage = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-
       {/* Фиксированный AppBar */}
-      <AppBar
-        position="sticky"
-        elevation={0}
-        sx={{
-          background: alpha("#1a1a2e", 0.9),
-          backdropFilter: "blur(20px)",
-          borderBottom: `1px solid ${alpha("#6366f1", 0.1)}`,
-        }}
-      >
-        <Toolbar>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Box
-              sx={{
-                background: "linear-gradient(45deg, #6366f1, #ec4899)",
-                borderRadius: "12px",
-                p: 1,
-              }}
-            >
-              <CarRental sx={{ color: "#fff", fontSize: 28 }} />
-            </Box>
-            <GradientText variant="h6" sx={{ fontWeight: 700 }}>
-              AutoVision
-            </GradientText>
-          </Box>
-
-          <Box sx={{ flexGrow: 1 }} />
-
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Typography
-              variant="body2"
-              sx={{ display: { xs: "none", sm: "block" }, color: "#fff" }}
-            >
-              Обновлено: {formatTime(lastUpdate)}
-            </Typography>
-            <IconButton
-              color="inherit"
-              onClick={handleRefresh}
-              disabled={loading}
-              sx={{
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  background: "linear-gradient(45deg, #6366f1, #ec4899)",
-                  transform: "rotate(45deg)",
-                },
-              }}
-            >
-              <Refresh />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
+      <AppHeader
+        lastUpdate={lastUpdate}
+        loading={loading}
+        onRefresh={handleRefresh}
+        formatTime={formatTime}
+      />
 
       <Container maxWidth="xl" sx={{ py: 4 }}>
         {/* Герой секция */}
@@ -224,9 +179,12 @@ const MainPage = () => {
         ) : (
           <Grid container spacing={3}>
             {cars.map((car) => (
-              <Grid item xs={12} sm={6} lg={4} key={car.id}>
+              <Box
+                key={car.id}
+                sx={{ width: { xs: "100%", sm: "50%", md: "33.333%" }, p: 1 }}
+              >
                 <CarCard car={car} />
-              </Grid>
+              </Box>
             ))}
           </Grid>
         )}
