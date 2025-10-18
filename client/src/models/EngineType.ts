@@ -1,3 +1,4 @@
+// src/models/EngineType.ts
 import type { BaseEntity } from "./BaseEntity";
 
 export interface EngineType extends BaseEntity {

@@ -1,3 +1,4 @@
+// src/App.tsx
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import MainPage from "./pages/MainPage";

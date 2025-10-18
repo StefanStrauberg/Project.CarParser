@@ -1,3 +1,4 @@
+// src/models/BaseEntity.ts
 export interface BaseEntity {
   id: string; // Guid → string
   createdAt: Date; // DateTime → ISO string

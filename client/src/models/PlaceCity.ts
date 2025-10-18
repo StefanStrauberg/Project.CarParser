@@ -1,3 +1,4 @@
+// src/models/PlaceCity.ts
 import type { BaseEntity } from "./BaseEntity";
 
 export interface PlaceCity extends BaseEntity {

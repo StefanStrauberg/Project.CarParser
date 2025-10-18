@@ -72,7 +72,11 @@ export const createCarListing = (): CarListing => {
     manufactureYear: randomInt(1990, new Date().getFullYear()),
     engineDisplacement: randomDecimal(1.0, 6.0, 1),
     publishDate: randomDate(),
-    image: faker.image.urlLoremFlickr({ category: "car" }), // исправлено, так как faker.image.vehicle() устарел
+    // image: faker.image.urlLoremFlickr({ category: "car" }),
+    image: `https://picsum.photos/400/300?random=${faker.number.int({
+      min: 1,
+      max: 1000,
+    })}`,
     placeRegionId: region.id,
     placeCityId: city.id,
     transmissionTypeId: transmission.id,

@@ -1,3 +1,4 @@
+// src/models/CarListing.ts
 import type { BaseEntity } from "./BaseEntity";
 import type { BodyType } from "./BodyType";
 import type { EngineType } from "./EngineType";
