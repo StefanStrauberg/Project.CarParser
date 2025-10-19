@@ -1,3 +1,4 @@
+// src/components/CarCard/index.tsx
 import {
   Card,
   CardContent,
@@ -6,20 +7,13 @@ import {
   Box,
   Chip,
   Stack,
-  IconButton,
-  Rating,
 } from "@mui/material";
-import {
-  Favorite,
-  Share,
-  Comment,
-  LocationOn,
-  Build,
-  Settings,
-  CarRental,
-} from "@mui/icons-material";
+import { LocationOn, Build, Settings, CarRental } from "@mui/icons-material";
 import { memo, useState } from "react";
 import type { CarListing } from "../../models/CarListing";
+
+// Импортируем стандартное изображение
+import defaultCarImage from "../../assets/images/default-car.png";
 
 export interface CarCardProps {
   car: CarListing;
@@ -27,7 +21,22 @@ export interface CarCardProps {
 }
 
 const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
+
+  // Обработчик ошибки загрузки изображения
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoading(false);
+  };
+
+  // Обработчик успешной загрузки изображения
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
+
+  // Используем стандартное изображение если произошла ошибка или изображение отсутствует
+  const imageSrc = imageError || !car.image ? defaultCarImage : car.image;
 
   return (
     <Card
@@ -36,7 +45,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
         height: "100%",
         maxWidth: 400,
         margin: "auto",
-        borderRadius: 1.5,
+        borderRadius: 1,
         boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
         cursor: "pointer",
@@ -54,15 +63,46 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
         <CardMedia
           component="img"
           height="220"
-          image={car.image}
+          image={imageSrc}
           alt={car.title}
+          onError={handleImageError}
+          onLoad={handleImageLoad}
           sx={{
             transition: "transform 0.3s ease",
             "&:hover": {
               transform: "scale(1.05)",
             },
+            // Добавляем стиль для стандартного изображения
+            ...((imageError || !car.image) && {
+              backgroundColor: "#f5f5f5",
+              objectFit: "contain",
+              padding: "20px",
+            }),
           }}
         />
+
+        {/* Индикатор загрузки */}
+        {imageLoading && car.image && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <Typography variant="caption" color="text.secondary">
+              Загрузка...
+            </Typography>
+          </Box>
+        )}
+
+        {/* Бейдж с годом производства */}
         <Box
           sx={{
             position: "absolute",
@@ -77,6 +117,24 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
             {car.manufactureYear} год
           </Typography>
         </Box>
+
+        {/* Бейдж для стандартного изображения */}
+        {(imageError || !car.image) && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: 12,
+              left: 12,
+              background: "rgba(99, 102, 241, 0.9)",
+              borderRadius: "12px",
+              padding: "4px 8px",
+            }}
+          >
+            <Typography variant="caption" color="white" fontWeight="bold">
+              Изображение отсутствует
+            </Typography>
+          </Box>
+        )}
       </Box>
 
       {/* Контент с автоматическим растяжением */}
@@ -148,7 +206,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
         </Typography>
 
         {/* Локация */}
-        <Stack direction="row" alignItems="center" spacing={1} mb={2}>
+        <Stack direction="row" alignItems="center" spacing={1}>
           <LocationOn fontSize="small" sx={{ color: "#f472b6" }} />
           <Typography
             variant="caption"
@@ -157,68 +215,6 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
             {car.placeCity.name}
           </Typography>
         </Stack>
-
-        {/* Цена и действия */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            mt: "auto",
-            flexShrink: 0,
-          }}
-        >
-          <Box>
-            <Typography variant="h6" fontWeight="800" sx={{ color: "#f59e0b" }}>
-              ${car.price.toLocaleString()}
-            </Typography>
-            <Rating value={4.5} readOnly size="small" precision={0.5} />
-          </Box>
-
-          <Stack direction="row" spacing={0.5}>
-            <IconButton
-              size="small"
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsFavorite(!isFavorite);
-              }}
-              sx={{
-                color: isFavorite ? "#ec4899" : "text.secondary",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  color: "#ec4899",
-                  transform: "scale(1.2)",
-                },
-              }}
-            >
-              <Favorite fontSize="small" />
-            </IconButton>
-            <IconButton
-              size="small"
-              sx={{
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  color: "#6366f1",
-                  transform: "scale(1.2)",
-                },
-              }}
-            >
-              <Comment fontSize="small" />
-            </IconButton>
-            <IconButton
-              size="small"
-              sx={{
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  color: "#f59e0b",
-                  transform: "scale(1.2)",
-                },
-              }}
-            >
-              <Share fontSize="small" />
-            </IconButton>
-          </Stack>
-        </Box>
       </CardContent>
     </Card>
   );

@@ -1,11 +1,11 @@
-import { KeyboardArrowUp, AutoAwesome } from "@mui/icons-material";
+// src/pages/MainPage.tsx
+import { KeyboardArrowUp } from "@mui/icons-material";
 import {
   Alert,
   alpha,
   Box,
   CircularProgress,
   Container,
-  CssBaseline,
   Fab,
   Fade,
   ThemeProvider,
@@ -19,7 +19,6 @@ import ScrollTop from "../components/ScrollTop";
 import { mockApi } from "../mocks/api";
 import type { CarListing } from "../models/CarListing";
 import CarCard from "../components/CarCard";
-import AppHeader from "../components/AppBar";
 
 const MainPage = () => {
   const [loading, setLoading] = useState(true);
@@ -49,10 +48,6 @@ const MainPage = () => {
     }
   };
 
-  const handleRefresh = async () => {
-    await loadData();
-  };
-
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString("ru-RU", {
       hour: "2-digit",
@@ -62,7 +57,6 @@ const MainPage = () => {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
       <Box
         sx={{
           minHeight: "100vh",
@@ -85,40 +79,10 @@ const MainPage = () => {
           },
         }}
       >
-        {/* Фиксированный AppBar */}
-        <AppHeader
-          lastUpdate={lastUpdate}
-          loading={loading}
-          onRefresh={handleRefresh}
-          formatTime={formatTime}
-        />
-
         <Container maxWidth="xl" sx={{ py: 4, position: "relative" }}>
-          {/* Герой секция */}
           <Box textAlign="center" mb={8} sx={{ position: "relative" }}>
             <Fade in timeout={800}>
               <Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 2,
-                    mb: 3,
-                  }}
-                >
-                  <Box
-                    sx={{
-                      background: "linear-gradient(45deg, #6366f1, #ec4899)",
-                      borderRadius: "20px",
-                      p: 2,
-                      boxShadow: "0 8px 32px rgba(99, 102, 241, 0.3)",
-                    }}
-                  >
-                    <AutoAwesome sx={{ color: "#fff", fontSize: 32 }} />
-                  </Box>
-                </Box>
-
                 <GradientText
                   variant="h1"
                   gutterBottom
@@ -153,8 +117,7 @@ const MainPage = () => {
                   fontWeight: 500,
                 }}
               >
-                Самые свежие предложения на рынке • Обновляется в реальном
-                времени
+                Самые свежие предложения на рынке • Постоянные обновления
               </Typography>
             </Fade>
 

@@ -5,7 +5,7 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import type { ReactNode } from "react";
 
 interface ScrollTopProps {
-  children: ReactNode; // можно добавить другие props
+  children: ReactNode;
 }
 
 const ScrollTop: React.FC<ScrollTopProps> = ({ children }) => {
