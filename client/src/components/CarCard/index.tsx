@@ -1,4 +1,3 @@
-// src/components/CarCard/index.tsx
 import {
   Card,
   CardContent,
@@ -7,11 +6,11 @@ import {
   Box,
   Chip,
   Stack,
+  useTheme,
 } from "@mui/material";
 import { LocationOn, Build, Settings, CarRental } from "@mui/icons-material";
 import { memo, useState } from "react";
 import type { CarListing } from "../../models/CarListing";
-
 // Импортируем стандартное изображение
 import defaultCarImage from "../../assets/images/default-car.png";
 
@@ -21,36 +20,35 @@ export interface CarCardProps {
 }
 
 const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
+  const theme = useTheme();
   const [imageError, setImageError] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
 
-  // Обработчик ошибки загрузки изображения
   const handleImageError = () => {
     setImageError(true);
     setImageLoading(false);
   };
 
-  // Обработчик успешной загрузки изображения
   const handleImageLoad = () => {
     setImageLoading(false);
   };
 
-  // Используем стандартное изображение если произошла ошибка или изображение отсутствует
   const imageSrc = imageError || !car.image ? defaultCarImage : car.image;
 
   return (
     <Card
       sx={{
         width: "100%",
-        height: "100%",
         maxWidth: 400,
         margin: "auto",
-        borderRadius: 1.5,
+        borderRadius: 3,
         boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
         cursor: "pointer",
         display: "flex",
         flexDirection: "column",
+        background: theme.palette.background.paper,
+        backdropFilter: "blur(10px)",
         "&:hover": {
           transform: "translateY(-8px)",
           boxShadow: "0 20px 40px rgba(99, 102, 241, 0.3)",
@@ -72,7 +70,6 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
             "&:hover": {
               transform: "scale(1.05)",
             },
-            // Добавляем стиль для стандартного изображения
             ...((imageError || !car.image) && {
               backgroundColor: "#f5f5f5",
               objectFit: "contain",
@@ -111,6 +108,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
             background: "rgba(0, 0, 0, 0.7)",
             borderRadius: "12px",
             padding: "4px 8px",
+            backdropFilter: "blur(10px)",
           }}
         >
           <Typography variant="caption" color="white" fontWeight="bold">
@@ -128,6 +126,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
               background: "rgba(99, 102, 241, 0.9)",
               borderRadius: "12px",
               padding: "4px 8px",
+              backdropFilter: "blur(10px)",
             }}
           >
             <Typography variant="caption" color="white" fontWeight="bold">
@@ -144,12 +143,12 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
           flex: 1,
           display: "flex",
           flexDirection: "column",
+          gap: 2,
         }}
       >
         {/* Заголовок с фиксированным количеством строк */}
         <Typography
           variant="h6"
-          gutterBottom
           sx={{
             fontWeight: 600,
             lineHeight: 1.3,
@@ -158,40 +157,52 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
             WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
+            color: "text.primary",
           }}
         >
           {car.title}
         </Typography>
 
         {/* Чипы */}
-        <Stack direction="row" spacing={1} mb={2} flexWrap="wrap" gap={1}>
+        <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
           <Chip
             icon={<CarRental sx={{ fontSize: 16 }} />}
             label={car.bodyType.name}
             size="small"
             variant="outlined"
-            sx={{ borderColor: "#6366f1", color: "#818cf8" }}
+            sx={{
+              borderColor: "#6366f1",
+              color: "#818cf8",
+              background: "rgba(99, 102, 241, 0.1)",
+            }}
           />
           <Chip
             icon={<Build sx={{ fontSize: 16 }} />}
             label={car.engineType.name}
             size="small"
             variant="outlined"
-            sx={{ borderColor: "#ec4899", color: "#f472b6" }}
+            sx={{
+              borderColor: "#ec4899",
+              color: "#f472b6",
+              background: "rgba(236, 72, 153, 0.1)",
+            }}
           />
           <Chip
             icon={<Settings sx={{ fontSize: 16 }} />}
             label={car.transmissionType.name}
             size="small"
             variant="outlined"
-            sx={{ borderColor: "#f59e0b", color: "#fbbf24" }}
+            sx={{
+              borderColor: "#f59e0b",
+              color: "#fbbf24",
+              background: "rgba(245, 158, 11, 0.1)",
+            }}
           />
         </Stack>
 
         {/* Описание с фиксированной высотой */}
         <Typography
           variant="body2"
-          color="text.secondary"
           sx={{
             lineHeight: 1.6,
             flex: 1,
@@ -199,7 +210,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
             WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
-            mb: 2,
+            color: "text.secondary",
           }}
         >
           {car.description || "Описание отсутствует"}
