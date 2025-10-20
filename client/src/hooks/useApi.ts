@@ -1,40 +1,77 @@
 // src/hooks/useApi.ts
-import { useCallback, useState } from "react";
-import type { CarListing } from "../models/CarListing";
-import { createCarListing } from "../mocks/factories";
+import type { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios from "axios";
+import { useState, useCallback } from "react";
 
-export interface UseApiResult<T> {
+// Создаем экземпляр axios с базовой конфигурацией
+export const apiClient = axios.create({
+  baseURL: import.meta.env.REACT_APP_API_URL,
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+// Интерфейс для состояния хука
+interface UseApiResult<T> {
   data: T | null;
   loading: boolean;
-  error: string | null;
-  fetch: () => Promise<void>;
+  error: string;
+  execute: (config?: AxiosRequestConfig) => Promise<void>;
+  refetch: () => Promise<void>;
 }
 
-export const useApi = <T = CarListing[]>(options?: {
-  delay?: number; // ms
-  count?: number; // how many cars to generate
-}): UseApiResult<T> => {
-  const { delay = 700, count = 10 } = options ?? {};
+export const useApi = <T = unknown>(
+  url: string,
+  initialConfig?: AxiosRequestConfig
+): UseApiResult<T> => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
-  const fetch = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      // fake network latency
-      await new Promise((res) => setTimeout(res, delay));
-      // create mock data
-      const payload = Array.from({ length: count }, () => createCarListing());
-      // cast to generic
-      setData(payload as unknown as T);
-    } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Unknown error");
-    } finally {
-      setLoading(false);
-    }
-  }, [delay, count]);
+  const execute = useCallback(
+    async (config?: AxiosRequestConfig) => {
+      try {
+        setLoading(true);
+        setError("");
 
-  return { data, loading, error, fetch };
+        const finalConfig = { ...initialConfig, ...config };
+        const response: AxiosResponse<T> = await apiClient(url, finalConfig);
+
+        setData(response.data);
+      } catch (err) {
+        let errorMessage = "Произошла ошибка";
+
+        if (axios.isAxiosError(err)) {
+          if (err.response) {
+            errorMessage = `Ошибка ${err.response.status}: ${
+              err.response.data?.message || "Неизвестная ошибка"
+            }`;
+          } else if (err.request) {
+            errorMessage = "Нет соединения с сервером";
+          } else {
+            errorMessage = "Ошибка при настройке запроса";
+          }
+        }
+
+        setError(errorMessage);
+        console.error("API Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [url, initialConfig]
+  );
+
+  const refetch = useCallback(async () => {
+    await execute();
+  }, [execute]);
+
+  return {
+    data,
+    loading,
+    error,
+    execute,
+    refetch,
+  };
 };

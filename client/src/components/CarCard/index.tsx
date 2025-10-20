@@ -45,7 +45,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
         height: "100%",
         maxWidth: 400,
         margin: "auto",
-        borderRadius: 1,
+        borderRadius: 1.5,
         boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
         cursor: "pointer",

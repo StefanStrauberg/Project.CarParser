@@ -1,6 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainPage from "../../pages/MainPage";
 import App from "../layouts/App";
+import EngineTypes from "../../pages/EngineTypes";
+import PlaceCities from "../../pages/PlaceCities";
+import PlaceRegions from "../../pages/PlaceRegions";
+import TransmissionTypes from "../../pages/TransmissionTypes";
 
 export const router = createBrowserRouter([
   {
@@ -8,7 +12,10 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "", element: <MainPage /> },
-      { path: "about", element: <></> },
+      { path: "engine-types", element: <EngineTypes /> },
+      { path: "place-cities", element: <PlaceCities /> },
+      { path: "place-regions", element: <PlaceRegions /> },
+      { path: "transmission-types", element: <TransmissionTypes /> },
     ],
   },
 ]);
