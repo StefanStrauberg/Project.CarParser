@@ -1,3 +1,4 @@
+// src/components/CarCard.tsx
 import {
   Card,
   CardContent,
@@ -5,230 +6,103 @@ import {
   Typography,
   Box,
   Chip,
-  Stack,
-  useTheme,
 } from "@mui/material";
-import { LocationOn, Build, Settings, CarRental } from "@mui/icons-material";
-import { memo, useState } from "react";
+import { LocalGasStation, Speed, CalendarToday } from "@mui/icons-material";
 import type { CarListing } from "../../models/CarListing";
-// Импортируем стандартное изображение
-import defaultCarImage from "../../assets/images/default-car.png";
+import { carCardStyles } from "../../styles/carCardStyles";
 
-export interface CarCardProps {
+interface CarCardProps {
   car: CarListing;
-  onCardClick?: (id: string) => void;
 }
 
-const CarCard: React.FC<CarCardProps> = ({ car, onCardClick }) => {
-  const theme = useTheme();
-  const [imageError, setImageError] = useState(false);
-  const [imageLoading, setImageLoading] = useState(true);
-
-  const handleImageError = () => {
-    setImageError(true);
-    setImageLoading(false);
+const CarCard = ({ car }: CarCardProps) => {
+  const getEngineTypeColor = (engineType: string) => {
+    switch (engineType.toLowerCase()) {
+      case "бензин":
+        return { background: "#0066ff", color: "#fff" };
+      case "дизель":
+        return { background: "#ff4444", color: "#fff" };
+      case "электро":
+        return { background: "#00ff88", color: "#000" };
+      case "гибрид":
+        return { background: "#ffaa00", color: "#000" };
+      default:
+        return { background: "#666", color: "#fff" };
+    }
   };
 
-  const handleImageLoad = () => {
-    setImageLoading(false);
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat("ru-RU").format(price);
   };
 
-  const imageSrc = imageError || !car.image ? defaultCarImage : car.image;
+  const engineColor = getEngineTypeColor(car.engineType.name);
 
   return (
-    <Card
-      sx={{
-        width: "100%",
-        maxWidth: 400,
-        margin: "auto",
-        borderRadius: 3,
-        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
-        transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-        cursor: "pointer",
-        display: "flex",
-        flexDirection: "column",
-        background: theme.palette.background.paper,
-        backdropFilter: "blur(10px)",
-        "&:hover": {
-          transform: "translateY(-8px)",
-          boxShadow: "0 20px 40px rgba(99, 102, 241, 0.3)",
-        },
-      }}
-      onClick={() => onCardClick?.(car.id)}
-    >
-      {/* Изображение с фиксированной высотой */}
-      <Box sx={{ position: "relative", flexShrink: 0 }}>
+    <Card sx={carCardStyles.card}>
+      <Box sx={carCardStyles.topBorder} />
+
+      <Box sx={carCardStyles.imageWrapper}>
         <CardMedia
+          className="car-image"
           component="img"
-          height="220"
-          image={imageSrc}
+          height="200"
+          image={car.image}
           alt={car.title}
-          onError={handleImageError}
-          onLoad={handleImageLoad}
-          sx={{
-            transition: "transform 0.3s ease",
-            "&:hover": {
-              transform: "scale(1.05)",
-            },
-            ...((imageError || !car.image) && {
-              backgroundColor: "#f5f5f5",
-              objectFit: "contain",
-              padding: "20px",
-            }),
-          }}
+          sx={carCardStyles.image}
         />
 
-        {/* Индикатор загрузки */}
-        {imageLoading && car.image && (
-          <Box
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <Typography variant="caption" color="text.secondary">
-              Загрузка...
-            </Typography>
-          </Box>
-        )}
-
-        {/* Бейдж с годом производства */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: 12,
-            right: 12,
-            background: "rgba(0, 0, 0, 0.7)",
-            borderRadius: "12px",
-            padding: "4px 8px",
-            backdropFilter: "blur(10px)",
-          }}
-        >
-          <Typography variant="caption" color="white" fontWeight="bold">
-            {car.manufactureYear} год
+        <Box sx={carCardStyles.priceTag}>
+          <Typography variant="h6" sx={carCardStyles.priceText}>
+            ${formatPrice(car.price)}
           </Typography>
         </Box>
 
-        {/* Бейдж для стандартного изображения */}
-        {(imageError || !car.image) && (
-          <Box
-            sx={{
-              position: "absolute",
-              top: 12,
-              left: 12,
-              background: "rgba(99, 102, 241, 0.9)",
-              borderRadius: "12px",
-              padding: "4px 8px",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            <Typography variant="caption" color="white" fontWeight="bold">
-              Изображение отсутствует
-            </Typography>
-          </Box>
-        )}
+        <Chip
+          label={car.engineType.name}
+          size="small"
+          sx={carCardStyles.engineChip(
+            engineColor.background,
+            engineColor.color
+          )}
+        />
       </Box>
 
-      {/* Контент с автоматическим растяжением */}
-      <CardContent
-        sx={{
-          p: 3,
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-        }}
-      >
-        {/* Заголовок с фиксированным количеством строк */}
-        <Typography
-          variant="h6"
-          sx={{
-            fontWeight: 600,
-            lineHeight: 1.3,
-            minHeight: "3em",
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            color: "text.primary",
-          }}
-        >
+      <CardContent sx={carCardStyles.content}>
+        <Typography variant="h6" sx={carCardStyles.title}>
           {car.title}
         </Typography>
 
-        {/* Чипы */}
-        <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
-          <Chip
-            icon={<CarRental sx={{ fontSize: 16 }} />}
-            label={car.bodyType.name}
-            size="small"
-            variant="outlined"
-            sx={{
-              borderColor: "#6366f1",
-              color: "#818cf8",
-              background: "rgba(99, 102, 241, 0.1)",
-            }}
-          />
-          <Chip
-            icon={<Build sx={{ fontSize: 16 }} />}
-            label={car.engineType.name}
-            size="small"
-            variant="outlined"
-            sx={{
-              borderColor: "#ec4899",
-              color: "#f472b6",
-              background: "rgba(236, 72, 153, 0.1)",
-            }}
-          />
-          <Chip
-            icon={<Settings sx={{ fontSize: 16 }} />}
-            label={car.transmissionType.name}
-            size="small"
-            variant="outlined"
-            sx={{
-              borderColor: "#f59e0b",
-              color: "#fbbf24",
-              background: "rgba(245, 158, 11, 0.1)",
-            }}
-          />
-        </Stack>
+        <Box sx={{ mb: 2 }}>
+          <Box sx={carCardStyles.specRow}>
+            <LocalGasStation sx={carCardStyles.specIcon("#00aaff")} />
+            <Typography variant="body2" sx={carCardStyles.specText("#00aaff")}>
+              {car.engineType.name} • 2,0L
+            </Typography>
+          </Box>
 
-        {/* Описание с фиксированной высотой */}
-        <Typography
-          variant="body2"
-          sx={{
-            lineHeight: 1.6,
-            flex: 1,
-            display: "-webkit-box",
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            color: "text.secondary",
-          }}
-        >
-          {car.description || "Описание отсутствует"}
-        </Typography>
+          <Box sx={carCardStyles.specRow}>
+            <Speed sx={carCardStyles.specIcon("#ff4444")} />
+            <Typography variant="body2" sx={carCardStyles.specText("#ff4444")}>
+              {car.transmissionType.name}
+            </Typography>
+          </Box>
 
-        {/* Локация */}
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <LocationOn fontSize="small" sx={{ color: "#f472b6" }} />
-          <Typography
-            variant="caption"
-            sx={{ color: "#818cf8", fontWeight: 500 }}
-          >
+          <Box sx={carCardStyles.specRow}>
+            <CalendarToday sx={carCardStyles.specIcon("#ffaa00")} />
+            <Typography variant="body2" sx={carCardStyles.specText("#ffaa00")}>
+              {car.manufactureYear} • 360 000 km
+            </Typography>
+          </Box>
+        </Box>
+
+        <Box sx={carCardStyles.locationRow}>
+          <Typography variant="caption" sx={carCardStyles.locationText}>
             {car.placeCity.name}
           </Typography>
-        </Stack>
+        </Box>
       </CardContent>
     </Card>
   );
 };
 
-export default memo(CarCard);
+export default CarCard;

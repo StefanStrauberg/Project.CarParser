@@ -6,44 +6,28 @@ import {
   Fab,
   Box,
   Typography,
+  Fade,
 } from "@mui/material";
-import { KeyboardArrowUp } from "@mui/icons-material";
-import { useApi } from "../../hooks/useApi";
+import { KeyboardArrowUp, MilitaryTech } from "@mui/icons-material";
 import CarCard from "../CarCard";
 import ScrollTop from "../ScrollTop";
-import React from "react";
-import type { CarListing } from "../../models/CarListing";
+import { useCarListings } from "../../hooks/useCarListings";
+import { carListStyles } from "../../styles/carListStyles";
 
 export const CarList: React.FC = () => {
-  const { data, loading, error, fetch } = useApi<CarListing[]>({
-    delay: 700,
-    count: 15,
-  });
+  const { cars, loading, error, refetch } = useCarListings(15);
 
-  React.useEffect(() => {
-    fetch();
-  }, [fetch]);
-
-  // Если данные загружаются впервые
-  if (loading && !data) {
+  if (loading && cars.length === 0) {
     return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="400px"
-      >
+      <Box sx={carListStyles.loadingWrapper}>
         <Box textAlign="center">
           <CircularProgress
             size={60}
             thickness={4}
-            sx={{
-              color: "primary.main",
-              mb: 2,
-            }}
+            sx={carListStyles.loadingCircle}
           />
-          <Typography variant="h6" color="text.secondary">
-            Ищем лучшие предложения...
+          <Typography variant="h6" sx={carListStyles.loadingText}>
+            SCANNING VEHICLE DATABASE...
           </Typography>
         </Box>
       </Box>
@@ -53,57 +37,59 @@ export const CarList: React.FC = () => {
   return (
     <>
       {error && (
-        <Alert
-          severity="error"
-          sx={{
-            mb: 3,
-            borderRadius: "12px",
-          }}
-        >
-          {error}
-        </Alert>
+        <Fade in>
+          <Alert
+            severity="error"
+            sx={carListStyles.errorAlert}
+            icon={<MilitaryTech />}
+            action={
+              <Typography
+                variant="body2"
+                sx={{ cursor: "pointer", fontWeight: 600 }}
+                onClick={refetch}
+              >
+                Повторить
+              </Typography>
+            }
+          >
+            <Typography sx={carListStyles.errorText}>{error}</Typography>
+          </Alert>
+        </Fade>
       )}
 
-      {data && data.length > 0 && (
-        <Grid container spacing={3}>
-          {data.map((car) => (
-            <Box
-              key={car.id}
-              sx={{ width: { xs: "100%", sm: "50%", md: "33.333%" }, p: 1 }}
-            >
-              <CarCard car={car} />
-            </Box>
+      {cars.length > 0 && (
+        <Grid container spacing={2}>
+          {cars.map((car, index) => (
+            <Fade in timeout={800 + index * 100} key={car.id}>
+              <Box sx={carListStyles.cardWrapper}>
+                <CarCard car={car} />
+              </Box>
+            </Fade>
           ))}
         </Grid>
       )}
 
-      {/* Сообщение если нет данных после загрузки */}
-      {!loading && data && data.length === 0 && (
-        <Box textAlign="center" py={8}>
-          <Typography variant="h6" color="text.secondary">
-            На сегодня новых объявлений не найдено
-          </Typography>
-        </Box>
+      {!loading && cars.length === 0 && (
+        <Fade in>
+          <Box sx={carListStyles.noDataBox}>
+            <Typography variant="h6" sx={carListStyles.noDataText}>
+              NO VEHICLES FOUND IN DATABASE
+            </Typography>
+          </Box>
+        </Fade>
       )}
 
-      {/* Показываем спиннер поверх данных при повторной загрузке */}
-      {loading && data && (
+      {loading && cars.length > 0 && (
         <Box display="flex" justifyContent="center" py={2}>
-          <CircularProgress />
+          <CircularProgress sx={carListStyles.reloadSpinner} />
         </Box>
       )}
 
       <ScrollTop>
         <Fab
-          color="primary"
+          size="medium"
           aria-label="scroll back to top"
-          sx={{
-            background: "linear-gradient(45deg, #6366f1, #ec4899)",
-            color: "white",
-            "&:hover": {
-              background: "linear-gradient(45deg, #575bc7, #db2777)",
-            },
-          }}
+          sx={carListStyles.scrollFab}
         >
           <KeyboardArrowUp />
         </Fab>

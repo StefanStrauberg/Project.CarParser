@@ -16,17 +16,6 @@ const GradientText = ({ children, sx, ...props }: GradientTextProps) => {
         WebkitTextFillColor: "transparent",
         backgroundSize: "200% 200%",
         animation: "gradientShift 3s ease infinite",
-        "@keyframes gradientShift": {
-          "0%": {
-            backgroundPosition: "0% 50%",
-          },
-          "50%": {
-            backgroundPosition: "100% 50%",
-          },
-          "100%": {
-            backgroundPosition: "0% 50%",
-          },
-        },
         ...sx,
       }}
     >

@@ -1,7 +1,7 @@
-// src/styles/darkTheme.ts
-import { alpha, createTheme } from "@mui/material";
+// src/layout/appTheme.ts
+import { createTheme, alpha } from "@mui/material/styles";
 
-export const darkTheme = createTheme({
+export const appTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
@@ -24,19 +24,10 @@ export const darkTheme = createTheme({
       primary: "#ffffff",
       secondary: "#00aaff",
     },
-    error: {
-      main: "#ff4444",
-      light: "#ff6666",
-    },
-    warning: {
-      main: "#ffaa00",
-    },
-    info: {
-      main: "#00aaff",
-    },
-    success: {
-      main: "#00ff88",
-    },
+    error: { main: "#ff4444", light: "#ff6666" },
+    warning: { main: "#ffaa00" },
+    info: { main: "#00aaff" },
+    success: { main: "#00ff88" },
   },
   typography: {
     fontFamily:
@@ -46,57 +37,66 @@ export const darkTheme = createTheme({
       fontSize: "clamp(2.5rem, 5vw, 4rem)",
       letterSpacing: "2px",
     },
-    h2: {
-      fontWeight: 700,
-      letterSpacing: "1.5px",
-    },
-    h3: {
-      fontWeight: 600,
-      letterSpacing: "1px",
-    },
-    h4: {
-      fontWeight: 600,
-      letterSpacing: "1px",
-    },
-    h5: {
-      fontWeight: 500,
-      letterSpacing: "0.5px",
-    },
-    h6: {
-      fontWeight: 500,
-      letterSpacing: "0.5px",
-    },
+    h2: { fontWeight: 700, letterSpacing: "1.5px" },
+    h3: { fontWeight: 600, letterSpacing: "1px" },
+    h4: { fontWeight: 600, letterSpacing: "1px" },
+    h5: { fontWeight: 500, letterSpacing: "0.5px" },
+    h6: { fontWeight: 500, letterSpacing: "0.5px" },
     button: {
       fontWeight: 600,
       textTransform: "uppercase",
       letterSpacing: "1px",
     },
   },
-  shape: {
-    borderRadius: 6, // Более угловатые формы в стиле Battlefield
-  },
+  shape: { borderRadius: 6 },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          scrollbarWidth: "thin",
+          scrollbarColor: "#0066ff #0a0e17",
+          "&::-webkit-scrollbar": { width: 8 },
+          "&::-webkit-scrollbar-track": { background: "#0a0e17" },
+          "&::-webkit-scrollbar-thumb": {
+            background: "linear-gradient(45deg, #0066ff, #ff4444)",
+            borderRadius: 4,
+          },
+        },
+        "@global": {
+          "@keyframes gradientShift": {
+            "0%": { backgroundPosition: "0% 50%" },
+            "50%": { backgroundPosition: "100% 50%" },
+            "100%": { backgroundPosition: "0% 50%" },
+          },
+          "@keyframes scanLine": {
+            "0%": { transform: "translateY(0)" },
+            "100%": { transform: "translateY(100vh)" },
+          },
+          "@keyframes pulseRed": {
+            "0%, 100%": { opacity: 0.1 },
+            "50%": { opacity: 0.3 },
+          },
+          "@keyframes pulseBlue": {
+            "0%, 100%": { opacity: 0.1 },
+            "50%": { opacity: 0.3 },
+          },
+        },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: {
-          background: `
-            linear-gradient(145deg, 
-              rgba(10, 15, 30, 0.85) 0%,
-              rgba(20, 25, 45, 0.8) 50%,
-              rgba(30, 15, 20, 0.75) 100%
-            )
-          `,
+          background: `linear-gradient(145deg, rgba(10, 15, 30, 0.85) 0%,rgba(20, 25, 45, 0.8) 50%,rgba(30, 15, 20, 0.75) 100%)`,
           border: "1px solid",
           borderColor: alpha("#0066ff", 0.3),
           backdropFilter: "blur(20px)",
           borderRadius: "8px",
           position: "relative",
           overflow: "hidden",
-          boxShadow: `
-            0 0 30px rgba(0, 102, 255, 0.2),
-            0 0 15px rgba(255, 68, 68, 0.1),
-            inset 0 1px 0 ${alpha("#fff", 0.1)}
-          `,
+          boxShadow: `0 0 30px rgba(0, 102, 255, 0.2),0 0 15px rgba(255, 68, 68, 0.1),inset 0 1px 0 ${alpha(
+            "#fff",
+            0.1
+          )}`,
           "&::before": {
             content: '""',
             position: "absolute",
@@ -109,11 +109,10 @@ export const darkTheme = createTheme({
           },
           "&:hover": {
             transform: "translateY(-4px)",
-            boxShadow: `
-              0 8px 40px rgba(0, 102, 255, 0.3),
-              0 4px 20px rgba(255, 68, 68, 0.2),
-              inset 0 1px 0 ${alpha("#fff", 0.1)}
-            `,
+            boxShadow: `0 8px 40px rgba(0, 102, 255, 0.3),0 4px 20px rgba(255, 68, 68, 0.2),inset 0 1px 0 ${alpha(
+              "#fff",
+              0.1
+            )}`,
             borderColor: alpha("#00aaff", 0.5),
           },
           transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -242,13 +241,6 @@ export const darkTheme = createTheme({
         outlined: {
           borderColor: alpha("#0066ff", 0.5),
           color: "#00aaff",
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundImage: "none", // Убираем градиент по умолчанию
         },
       },
     },
