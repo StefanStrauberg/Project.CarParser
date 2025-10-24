@@ -6,13 +6,17 @@ internal class CarListingConfiguration : BaseEntityConfiguration<CarListing>
        {
               base.Configure(builder);
 
-              builder.Property(c => c.Title).IsRequired();
-              builder.Property(c => c.Price).IsRequired();
-              builder.Property(c => c.Description);
-              builder.Property(c => c.Url).IsRequired();
-              builder.Property(c => c.ManufactureYear).IsRequired();
-              builder.Property(c => c.EngineDisplacement).IsRequired();
+              builder.Property(c => c.Title).IsRequired().HasMaxLength(150);
+              builder.Property(c => c.Url).IsRequired().HasMaxLength(200);
+              builder.HasIndex(c => c.Url).IsUnique();
+              builder.Property(c => c.PricePrimary).IsRequired();
+              builder.Property(c => c.PriceSecondary).IsRequired();
+              builder.Property(c => c.Year).IsRequired();
+              builder.Property(c => c.EngineVolume).IsRequired();
+              builder.Property(c => c.Mileage).IsRequired();
               builder.Property(c => c.PublishDate).IsRequired();
+              builder.Property(c => c.HasVin).IsRequired();
+              builder.Property(c => c.FirstImageUrl).HasMaxLength(300);
 
               builder.HasOne(c => c.PlaceRegion)
                      .WithMany()

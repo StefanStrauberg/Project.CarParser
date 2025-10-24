@@ -13,17 +13,35 @@ public class CreateCarListingDTO : BaseCarListingDTO, IMapWith<CarListing>
     profile.CreateMap<CreateCarListingDTO, CarListing>()
            .ForMember(dest => dest.Title,
                       opt => opt.MapFrom(src => src.Title))
-           .ForMember(dest => dest.Price,
-                    opt => opt.MapFrom(src => src.Price))
-           .ForMember(dest => dest.Description,
-                    opt => opt.MapFrom(src => src.Description))
            .ForMember(dest => dest.Url,
                     opt => opt.MapFrom(src => src.Url))
-           .ForMember(dest => dest.ManufactureYear,
-                    opt => opt.MapFrom(src => src.ManufactureYear))
-           .ForMember(dest => dest.EngineDisplacement,
-                    opt => opt.MapFrom(src => src.EngineDisplacement))
+           .ForMember(dest => dest.FullUrl,
+                    opt => opt.MapFrom(src => src.FullUrl))
+           .ForMember(dest => dest.PricePrimary,
+                    opt => opt.MapFrom(src => src.PricePrimary))
+           .ForMember(dest => dest.PriceSecondary,
+                    opt => opt.MapFrom(src => src.PriceSecondary))
+           .ForMember(dest => dest.Year,
+                    opt => opt.MapFrom(src => src.Year))
+           .ForMember(dest => dest.EngineVolume,
+                    opt => opt.MapFrom(src => src.EngineVolume))
+           .ForMember(dest => dest.Mileage,
+                    opt => opt.MapFrom(src => src.Mileage))
            .ForMember(dest => dest.PublishDate,
-                    opt => opt.MapFrom(src => src.PublishDate));
+                    opt => opt.MapFrom(src => src.PublishDate))
+           .ForMember(dest => dest.HasVin,
+                    opt => opt.MapFrom(src => src.HasVin))
+           .ForMember(dest => dest.FirstImageUrl,
+                    opt => opt.MapFrom(src => src.FirstImageUrl))
+           .ForMember(dest => dest.PlaceRegionId,
+                    opt => opt.MapFrom(src => src.PlaceRegionId))
+           .ForMember(dest => dest.PlaceCityId,
+                    opt => opt.MapFrom(src => src.PlaceCityId))
+           .ForMember(dest => dest.TransmissionTypeId,
+                    opt => opt.MapFrom(src => src.TransmissionTypeId))
+           .ForMember(dest => dest.EngineTypeId,
+                    opt => opt.MapFrom(src => src.EngineTypeId))
+           .ForMember(dest => dest.BodyTypeId,
+                    opt => opt.MapFrom(src => src.BodyTypeId));
   }
 }
