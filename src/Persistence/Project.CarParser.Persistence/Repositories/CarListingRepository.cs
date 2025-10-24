@@ -5,6 +5,7 @@ public class CarListingRepository(IExistenceQueryRepository<CarListing> existenc
                                   IInsertRepository<CarListing> insertRepository,
                                   IDeleteRepository<CarListing> deleteRepository,
                                   IReplaceRepository<CarListing> replaceRepository,
+                                  IBulkInsertRepository<CarListing> bulkInsertRepository,
                                   ApplicationDbContext context) : ICarListingRepository
 {
   async Task<CarListing> IOneQueryRepository<CarListing>.GetOneShortAsync(ISpecification<CarListing> specification,
@@ -48,4 +49,7 @@ public class CarListingRepository(IExistenceQueryRepository<CarListing> existenc
 
   void IReplaceRepository<CarListing>.ReplaceOne(CarListing entity)
     => replaceRepository.ReplaceOne(entity);
+
+  public void InsertMany(IEnumerable<CarListing> entities)
+    => bulkInsertRepository.InsertMany(entities);
 }

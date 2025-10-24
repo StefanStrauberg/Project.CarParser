@@ -33,3 +33,4 @@ global using Project.CarParser.Application.DTOs.PlaceCities;
 global using Project.CarParser.Application.DTOs.PlaceRegions;
 global using Project.CarParser.Application.DTOs.TransmissionTypes;
 global using Project.CarParser.Application.DTOs.CarListings;
+global using Project.CarParser.Application.Contracts.Scraper;

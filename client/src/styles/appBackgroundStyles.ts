@@ -57,6 +57,21 @@ export const appBackgroundStyles = {
     },
   }),
 
+  glassOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: `
+    linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(20, 30, 50, 0.4)),
+    radial-gradient(circle at 50% 50%, rgba(0, 170, 255, 0.05), transparent 70%)
+  `,
+    backdropFilter: "blur(3px) saturate(120%) contrast(1.2)",
+    pointerEvents: "none",
+    zIndex: 1,
+  } as SxProps<Theme>,
+
   scanLine: {
     position: "absolute",
     top: 0,

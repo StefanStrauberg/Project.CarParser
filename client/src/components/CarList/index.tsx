@@ -38,22 +38,24 @@ export const CarList: React.FC = () => {
     <>
       {error && (
         <Fade in>
-          <Alert
-            severity="error"
-            sx={carListStyles.errorAlert}
-            icon={<MilitaryTech />}
-            action={
-              <Typography
-                variant="body2"
-                sx={{ cursor: "pointer", fontWeight: 600 }}
-                onClick={refetch}
-              >
-                Повторить
-              </Typography>
-            }
-          >
-            <Typography sx={carListStyles.errorText}>{error}</Typography>
-          </Alert>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+            <Alert
+              severity="error"
+              sx={carListStyles.errorAlert}
+              icon={<MilitaryTech />}
+              action={
+                <Typography
+                  variant="body2"
+                  sx={{ cursor: "pointer", fontWeight: 600 }}
+                  onClick={refetch}
+                >
+                  Повторить
+                </Typography>
+              }
+            >
+              <Typography sx={carListStyles.errorText}>{error}</Typography>
+            </Alert>
+          </Box>
         </Fade>
       )}
 

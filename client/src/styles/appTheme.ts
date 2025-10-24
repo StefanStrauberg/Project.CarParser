@@ -5,47 +5,48 @@ export const appTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#0066ff",
-      light: "#00aaff",
-      dark: "#0055dd",
+      main: "#00aaff", // холодный неон
+      light: "#33ccff",
+      dark: "#0066ff",
       contrastText: "#ffffff",
     },
     secondary: {
-      main: "#ff4444",
-      light: "#ff6666",
-      dark: "#dd3333",
+      main: "#ff6600", // янтарный акцент
+      light: "#ff944d",
+      dark: "#b64200",
       contrastText: "#ffffff",
     },
     background: {
       default: "#0a0e17",
-      paper: "rgba(20, 25, 45, 0.9)",
+      paper: "rgba(15, 20, 30, 0.85)",
     },
     text: {
       primary: "#ffffff",
-      secondary: "#00aaff",
+      secondary: "#94c5cc", // светло-голубой
     },
-    error: { main: "#ff4444", light: "#ff6666" },
-    warning: { main: "#ffaa00" },
     info: { main: "#00aaff" },
+    warning: { main: "#ffaa00" },
+    error: { main: "#ff4444" },
     success: { main: "#00ff88" },
   },
+
   typography: {
-    fontFamily:
-      '"Orbitron", "Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Orbitron", "Rajdhani", "Segoe UI", "Roboto", sans-serif',
     h1: {
-      fontWeight: 800,
-      fontSize: "clamp(2.5rem, 5vw, 4rem)",
+      fontWeight: 900,
+      fontSize: "clamp(2.8rem, 6vw, 4.5rem)",
       letterSpacing: "2px",
+      textTransform: "uppercase",
     },
-    h2: { fontWeight: 700, letterSpacing: "1.5px" },
-    h3: { fontWeight: 600, letterSpacing: "1px" },
+    h2: { fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase" },
+    h3: { fontWeight: 700, letterSpacing: "1px" },
     h4: { fontWeight: 600, letterSpacing: "1px" },
     h5: { fontWeight: 500, letterSpacing: "0.5px" },
     h6: { fontWeight: 500, letterSpacing: "0.5px" },
     button: {
-      fontWeight: 600,
+      fontWeight: 700,
       textTransform: "uppercase",
-      letterSpacing: "1px",
+      letterSpacing: "1.2px",
     },
   },
   shape: { borderRadius: 6 },
@@ -86,17 +87,16 @@ export const appTheme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          background: `linear-gradient(145deg, rgba(10, 15, 30, 0.85) 0%,rgba(20, 25, 45, 0.8) 50%,rgba(30, 15, 20, 0.75) 100%)`,
+          background: `linear-gradient(145deg, rgba(10, 15, 30, 0.85), rgba(20, 25, 45, 0.75))`,
           border: "1px solid",
-          borderColor: alpha("#0066ff", 0.3),
-          backdropFilter: "blur(20px)",
-          borderRadius: "8px",
-          position: "relative",
-          overflow: "hidden",
-          boxShadow: `0 0 30px rgba(0, 102, 255, 0.2),0 0 15px rgba(255, 68, 68, 0.1),inset 0 1px 0 ${alpha(
-            "#fff",
-            0.1
-          )}`,
+          borderColor: alpha("#00aaff", 0.2),
+          backdropFilter: "blur(16px) saturate(120%)",
+          borderRadius: "10px",
+          boxShadow: `
+        0 0 20px rgba(0, 170, 255, 0.15),
+        0 0 10px rgba(255, 102, 0, 0.1),
+        inset 0 1px 0 ${alpha("#fff", 0.05)}
+      `,
           "&::before": {
             content: '""',
             position: "absolute",
@@ -104,18 +104,8 @@ export const appTheme = createTheme({
             left: 0,
             right: 0,
             height: "2px",
-            background: "linear-gradient(90deg, #0066ff, #ff4444, #0066ff)",
-            borderRadius: "8px 8px 0 0",
+            background: "linear-gradient(90deg, #00aaff, #ff6600, #00aaff)",
           },
-          "&:hover": {
-            transform: "translateY(-4px)",
-            boxShadow: `0 8px 40px rgba(0, 102, 255, 0.3),0 4px 20px rgba(255, 68, 68, 0.2),inset 0 1px 0 ${alpha(
-              "#fff",
-              0.1
-            )}`,
-            borderColor: alpha("#00aaff", 0.5),
-          },
-          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         },
       },
     },

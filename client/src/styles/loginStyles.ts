@@ -39,6 +39,21 @@ export const styles = {
     },
   }),
 
+  glassOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: `
+    linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(20, 30, 50, 0.4)),
+    radial-gradient(circle at 50% 50%, rgba(0, 170, 255, 0.05), transparent 70%)
+  `,
+    backdropFilter: "blur(3px) saturate(120%) contrast(1.2)",
+    pointerEvents: "none",
+    zIndex: 1,
+  } as SxProps<Theme>,
+
   scanLine: {
     position: "absolute",
     top: 0,
@@ -47,14 +62,47 @@ export const styles = {
     height: "1px",
     background:
       "linear-gradient(90deg, transparent, #00aaff, #ff4444, transparent)",
-    animation: "scanLine 4s linear infinite",
-    boxShadow: "0 0 10px #00aaff, 0 0 5px #ff4444",
-    opacity: 0.7,
+    animation: "scanLine 12s linear infinite",
+    boxShadow: "0 0 8px #00aaff, 0 0 4px #ff4444",
+    opacity: 0.4,
+    zIndex: 1,
     "@keyframes scanLine": {
       "0%": { transform: "translateY(0)" },
       "100%": { transform: "translateY(100vh)" },
     },
-  },
+  } as SxProps<Theme>,
+
+  pulseRed: {
+    position: "absolute",
+    top: "30%",
+    left: 0,
+    right: 0,
+    height: "1px",
+    background: "linear-gradient(90deg, transparent, #ff4444, transparent)",
+    animation: "pulseRed 8s ease-in-out infinite",
+    opacity: 0.2,
+    zIndex: 1,
+    "@keyframes pulseRed": {
+      "0%, 100%": { opacity: 0.1 },
+      "50%": { opacity: 0.3 },
+    },
+  } as SxProps<Theme>,
+
+  pulseBlue: {
+    position: "absolute",
+    top: "60%",
+    left: 0,
+    right: 0,
+    height: "1px",
+    background: "linear-gradient(90deg, transparent, #00aaff, transparent)",
+    animation: "pulseBlue 6s ease-in-out infinite 2s",
+    opacity: 0.2,
+    zIndex: 1,
+    "@keyframes pulseBlue": {
+      "0%, 100%": { opacity: 0.1 },
+      "50%": { opacity: 0.3 },
+    },
+  } as SxProps<Theme>,
 
   card: {
     p: { xs: 3, sm: 4, md: 5 },

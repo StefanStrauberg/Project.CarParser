@@ -5,6 +5,7 @@ internal class CarListingUnitOfWork(IExistenceQueryRepository<CarListing> existe
                                     IInsertRepository<CarListing> insertRepository,
                                     IDeleteRepository<CarListing> deleteRepository,
                                     IReplaceRepository<CarListing> replaceRepository,
+                                    IBulkInsertRepository<CarListing> bulkInsertRepository,
                                     ApplicationDbContext applicationDbContext)
   : UnitOfWork(applicationDbContext), ICarListingUnitOfWork
 {
@@ -15,5 +16,6 @@ internal class CarListingUnitOfWork(IExistenceQueryRepository<CarListing> existe
                                 insertRepository,
                                 deleteRepository,
                                 replaceRepository,
+                                bulkInsertRepository,
                                 _applicationDbContext);
 }

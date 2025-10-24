@@ -1,7 +1,6 @@
 // src/components/CarList/carListStyles.ts
 import type { Theme } from "@mui/material/styles";
 import type { SxProps } from "@mui/material/styles";
-import { alpha } from "@mui/material/styles";
 
 export const carListStyles = {
   loadingWrapper: {
@@ -30,14 +29,18 @@ export const carListStyles = {
   } as SxProps<Theme>,
 
   errorAlert: {
-    mb: 3,
-    borderRadius: "4px",
-    background: alpha("#ff4444", 0.15),
-    border: "1px solid",
-    borderColor: alpha("#ff4444", 0.3),
-    color: "#ff6666",
+    mt: 4,
+    mx: "auto",
+    maxWidth: 600,
+    borderRadius: 2,
     backdropFilter: "blur(10px)",
-    boxShadow: "0 0 15px rgba(255, 68, 68, 0.2)",
+    backgroundColor: "rgba(50, 0, 0, 0.3)",
+    border: "1px solid rgba(255, 68, 68, 0.3)",
+    px: 2,
+    py: 1.5,
+    boxShadow: "0 0 12px rgba(255, 68, 68, 0.2)",
+    display: "flex",
+    alignItems: "center",
   } as SxProps<Theme>,
 
   errorText: {

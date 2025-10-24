@@ -6,5 +6,6 @@ public interface ICarListingRepository
     ICountRepository<CarListing>,
     IInsertRepository<CarListing>,
     IDeleteRepository<CarListing>,
-    IReplaceRepository<CarListing>
+    IReplaceRepository<CarListing>,
+    IBulkInsertRepository<CarListing>
 { }

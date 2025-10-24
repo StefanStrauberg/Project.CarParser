@@ -24,11 +24,11 @@ import { useNavigate } from "react-router-dom";
 import GradientText from "../components/GradientText";
 import { styles } from "../styles/loginStyles";
 
-import authBg1 from "../assets/images/auth-bg-1.png";
-import authBg2 from "../assets/images/auth-bg-2.png";
-import authBg3 from "../assets/images/auth-bg-3.png";
-import authBg4 from "../assets/images/auth-bg-4.png";
-import authBg5 from "../assets/images/auth-bg-5.png";
+import authBg1 from "../assets/images/auth-bg-1.jpg";
+import authBg2 from "../assets/images/auth-bg-2.jpg";
+import authBg3 from "../assets/images/auth-bg-3.jpg";
+import authBg4 from "../assets/images/auth-bg-4.jpg";
+import authBg5 from "../assets/images/auth-bg-5.jpg";
 
 const carImages = [authBg1, authBg2, authBg3, authBg4, authBg5];
 
@@ -105,7 +105,10 @@ const LoginPage = () => {
             sx={styles.backgroundImage(image, index === currentImageIndex)}
           />
         ))}
+        <Box sx={styles.glassOverlay} />
         <Box sx={styles.scanLine} />
+        <Box sx={styles.pulseRed} />
+        <Box sx={styles.pulseBlue} />
       </Box>
 
       <Container maxWidth="sm" sx={{ position: "relative", zIndex: 1, py: 4 }}>
