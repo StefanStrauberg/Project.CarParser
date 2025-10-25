@@ -21,8 +21,6 @@ public class BaseCarListingDTO : IMapWith<CarListing>
                       opt => opt.MapFrom(src => src.Title))
            .ForMember(dest => dest.Url,
                     opt => opt.MapFrom(src => src.Url))
-           .ForMember(dest => dest.FullUrl,
-                    opt => opt.MapFrom(src => src.FullUrl))
            .ForMember(dest => dest.PricePrimary,
                     opt => opt.MapFrom(src => src.PricePrimary))
            .ForMember(dest => dest.PriceSecondary,

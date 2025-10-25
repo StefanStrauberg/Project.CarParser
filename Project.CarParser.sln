@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.CarParser.Specifica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.CarParser.QueryFilterParser", "src\Infrastructure\Project.CarParser.QueryFilterParser\Project.CarParser.QueryFilterParser.csproj", "{19BECEC0-F7E9-4B42-BC29-FA0D52B78756}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.CarParser.CarListingScraper", "src\Infrastructure\Project.CarParser.CarListingScraper\Project.CarParser.CarListingScraper.csproj", "{D63313E6-17AF-4307-8E23-1144DABE7C43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,18 @@ Global
 		{19BECEC0-F7E9-4B42-BC29-FA0D52B78756}.Release|x64.Build.0 = Release|Any CPU
 		{19BECEC0-F7E9-4B42-BC29-FA0D52B78756}.Release|x86.ActiveCfg = Release|Any CPU
 		{19BECEC0-F7E9-4B42-BC29-FA0D52B78756}.Release|x86.Build.0 = Release|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Debug|x64.Build.0 = Debug|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Debug|x86.Build.0 = Debug|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Release|x64.ActiveCfg = Release|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Release|x64.Build.0 = Release|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Release|x86.ActiveCfg = Release|Any CPU
+		{D63313E6-17AF-4307-8E23-1144DABE7C43}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,5 +151,6 @@ Global
 		{9ADD8FEB-1619-4731-B564-0721CA507F66} = {9048EB7F-3875-A59E-E36B-5BD4C6F2A282}
 		{41759C81-BB98-4207-B496-35DA0FDEDAF0} = {9048EB7F-3875-A59E-E36B-5BD4C6F2A282}
 		{19BECEC0-F7E9-4B42-BC29-FA0D52B78756} = {9048EB7F-3875-A59E-E36B-5BD4C6F2A282}
+		{D63313E6-17AF-4307-8E23-1144DABE7C43} = {9048EB7F-3875-A59E-E36B-5BD4C6F2A282}
 	EndGlobalSection
 EndGlobal
