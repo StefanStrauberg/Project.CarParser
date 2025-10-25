@@ -18,3 +18,6 @@ global using Project.CarParser.Application.Contracts.Repositories.UnOfWrkRep;
 global using Microsoft.EntityFrameworkCore.Storage;
 global using Project.CarParser.Persistence.Repositories.UnOfWrkRep;
 global using Microsoft.EntityFrameworkCore.Query;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Identity;
+global using Project.CarParser.Application.Contracts.Auth;

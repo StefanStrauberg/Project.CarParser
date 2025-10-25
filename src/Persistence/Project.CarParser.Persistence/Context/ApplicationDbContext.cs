@@ -1,7 +1,7 @@
 namespace Project.CarParser.Persistence.Context;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-  : DbContext(options)
+  : IdentityDbContext<User>(options)
 {
   public DbSet<CarListing> CarListings { get; set; }
   public DbSet<PlaceRegion> PlaceRegions { get; set; }

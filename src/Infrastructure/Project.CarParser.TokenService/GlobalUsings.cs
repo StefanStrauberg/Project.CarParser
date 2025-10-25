@@ -1,0 +1,11 @@
+global using Microsoft.Extensions.DependencyInjection;
+global using Project.CarParser.Application.Contracts.Auth;
+global using Project.CarParser.Domain;
+global using Project.CarParser.Domain.Common;
+global using Microsoft.AspNetCore.Identity;
+global using System.Security.Claims;
+global using System.Text;
+global using Microsoft.IdentityModel.JsonWebTokens;
+global using Microsoft.IdentityModel.Tokens;
+global using Microsoft.Extensions.Configuration;
+global using System.Security.Cryptography;

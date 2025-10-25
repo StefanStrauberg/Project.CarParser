@@ -37,3 +37,4 @@ global using Project.CarParser.Application.Contracts.Scraper;
 global using Project.CarParser.Application.Features.CarListings.Commands;
 global using Project.CarParser.Application.Models;
 global using System.Globalization;
+global using System.Security.Claims;
